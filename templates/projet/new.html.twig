@@ -1,0 +1,21 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}New Projet{% endblock %}
+{% block pageTitle %}
+    Create new Projet
+{% endblock %}
+
+{% block body %}
+
+    {{ include('projet/_form.html.twig') }}
+    <a href="{{ path('app_projet_index') }}" class="btn btn-secondary mt-3">Back to List</a>
+{#    <a href="{{ path('app_projet_edit') }}" class="btn btn-secondary">Back to Edit</a>#}
+{#    <div class="row mt-3">#}
+{#        <div class="col">#}
+{#            <a href="{{ path('app_projet_index') }}" class="btn btn-secondary">Back to List</a>#}
+{#        </div>#}
+{#        <div class="col">#}
+{#            <a href="{{ path('app_projet_index') }}" class="btn btn-secondary">Back to Edit</a>#}
+{#        </div>#}
+{#    </div>#}
+{% endblock %}
