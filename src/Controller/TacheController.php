@@ -14,6 +14,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/tache')]
 class TacheController extends AbstractController
 {
+    #[Route('/userTaches', name: 'app_tache_userTaches', methods: ['GET'])]
+    public function userTache(): Response
+    {
+        // Get the currently logged-in user
+        $user = $this->getUser();
+
+        // Retrieve only the tasks belonging to the current user
+        $userTaches = $user->getTaches();
+
+        return $this->render('tache/index.html.twig', [
+            'taches' => $userTaches,
+        ]);
+    }
     #[Route('/', name: 'app_tache_index', methods: ['GET'])]
     public function index(TacheRepository $tacheRepository): Response
     {
@@ -71,7 +84,7 @@ class TacheController extends AbstractController
     #[Route('/{id}', name: 'app_tache_delete', methods: ['POST'])]
     public function delete(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$tache->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $tache->getId(), $request->request->get('_token'))) {
             $entityManager->remove($tache);
             $entityManager->flush();
         }

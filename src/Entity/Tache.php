@@ -29,6 +29,9 @@ class Tache
     #[ORM\ManyToOne(inversedBy: 'taches')]
     private ?Projet $projet = null;
 
+    #[ORM\ManyToOne(inversedBy: 'taches')]
+    private ?User $users = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,18 @@ class Tache
     public function setProjet(?Projet $projet): static
     {
         $this->projet = $projet;
+
+        return $this;
+    }
+
+    public function getUsers(): ?User
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?User $users): static
+    {
+        $this->users = $users;
 
         return $this;
     }

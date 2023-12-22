@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Form;
-
+use App\Entity\User;
 use App\Entity\Projet;
 use App\Entity\Tache;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -29,6 +29,12 @@ class TacheType extends AbstractType
                 'class' => Projet::class,
                 'choice_label' => function ($projet) {
                     return $projet->getnomProjet();
+                },
+            ])
+            ->add('users', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => function ($user) {
+                    return $user->getFirstname();
                 },
             ]);
     }

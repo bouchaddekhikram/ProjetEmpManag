@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'template.html.twig' %}
 
-{% block title %}Tache{% endblock %}
-
+{% block title %}Projet{% endblock %}
+{% block pageTitle %}
+    Liste des taches
+{% endblock %}
 {% block body %}
-    <h1>Tache</h1>
 
     <table class="table">
         <tbody>
@@ -26,6 +27,13 @@
             <tr>
                 <th>Status</th>
                 <td>{{ tache.Status }}</td>
+            </tr>
+            <tr>
+                <th>Projet</th>
+                <td>{{ tache.projet.nomProjet }} </td>
+            </tr>   <tr>
+                <th>Employee</th>
+                <td>{{ tache.users.Firstname }} {{ tache.users.Lastname }} </td>
             </tr>
         </tbody>
     </table>
