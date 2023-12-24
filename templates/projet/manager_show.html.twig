@@ -1,0 +1,43 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Projet{% endblock %}
+
+{% block body %}
+    <h1>Projet</h1>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ projet.id }}</td>
+        </tr>
+        <tr>
+            <th>NomProjet</th>
+            <td>{{ projet.nomProjet }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ projet.Description }}</td>
+        </tr>
+        <tr>
+            <th>DateDebut</th>
+            <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>DataFin</th>
+            <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ projet.status }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a><br>
+    <a href="{{ path('app_tache_projectTaches' , {'projectId': projet.id}) }}">View task's list</a><br>
+    <a href="{{ path('app_projet_index') }}">back to list</a>
+
+
+
+{% endblock %}

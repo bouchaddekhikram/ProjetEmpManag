@@ -1,0 +1,53 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Projet{% endblock %}
+{% block pageTitle %}
+    Liste des taches
+{% endblock %}
+
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>DateDebut</th>
+            <th>DataFin</th>
+            <th>Status</th>
+            <th>Projet</th>
+            <th>Employee</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tache in taches %}
+            {% set statusClass = tache.Status == 'Pending' ? 'table-danger' : (tache.Status == 'Waiting' ? 'table-warning' : 'table-success') %}
+            <tr  class="{{ statusClass }}">
+                <td>{{ tache.id }}</td>
+                <td>{{ tache.Description }}</td>
+                <td>{{ tache.dateDebut ? tache.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ tache.dataFin ? tache.dataFin|date('Y-m-d') : '' }}</td>
+                <td>{{ tache.Status }}</td>
+                <td>{{ tache.projet.nomProjet }}</td>
+                <td>{{ tache.users.Firstname }} {{ tache.users.Lastname }}</td>
+
+                <td>
+                    <a href="{{ path('app_project_tache_show', {'id': tache.id}) }}">show</a>
+                    <a href="{{ path('app_tache_projectTachesedit', {'id': tache.id}) }}">edit</a>
+{#                    <a href="{{ path('app_tache_projectTaches' , {'projectId': tache.projet.id}) }}">back to list</a>#}
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_new_task') }}">Create new</a>
+{#    <a href="{{ path('app_tache_projectTaches' , {'projectId': tache.projet.id}) }}">Back to project list</a>#}
+{% endblock %}

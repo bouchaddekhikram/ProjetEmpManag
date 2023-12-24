@@ -1,0 +1,48 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Projet{% endblock %}
+{% block pageTitle %}
+    {{ tache.Description }}
+{% endblock %}
+{% block body %}
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ tache.id }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ tache.Description }}</td>
+        </tr>
+        <tr>
+            <th>DateDebut</th>
+            <td>{{ tache.dateDebut ? tache.dateDebut|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>DataFin</th>
+            <td>{{ tache.dataFin ? tache.dataFin|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ tache.Status }}</td>
+        </tr>
+        <tr>
+            <th>Projet</th>
+            <td>{{ tache.projet.nomProjet }} </td>
+        </tr>   <tr>
+            <th>Employee</th>
+            <td>{{ tache.users.Firstname }} {{ tache.users.Lastname }} </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_tache_projectTachesedit', {'id': tache.id}) }}">edit</a> <br>
+
+    <a href="{{ path('app_tache_projectTaches' , {'projectId': tache.projet.id}) }}">back to list</a>
+
+
+    {{ include('tache/_delete_form.html.twig') }}
+{% endblock %}

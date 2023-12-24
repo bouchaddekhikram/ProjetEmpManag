@@ -31,6 +31,12 @@ class Projet
     #[ORM\OneToMany(mappedBy: 'projet', targetEntity: Tache::class)]
     private Collection $taches;
 
+    #[ORM\ManyToOne(inversedBy: 'projets')]
+    private ?User $user = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $status = null;
+
     public function __construct()
     {
         $this->taches = new ArrayCollection();
@@ -115,6 +121,30 @@ class Projet
                 $tach->setProjet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

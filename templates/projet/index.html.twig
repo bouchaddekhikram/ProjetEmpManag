@@ -1,15 +1,9 @@
 {% extends 'template.html.twig' %}
 
-{% block title %}Projet{% endblock %}
-{% block pageTitle %}
-    Liste des projets
-{% endblock %}
-{% block navbars %}
-    <a class="nav-link" href="{{ path('app_projet_new') }}">Add Projet</a>
-{% endblock %}
+{% block title %}Projet index{% endblock %}
 
 {% block body %}
-    <h1>Projet</h1>
+    <h1>Projet index</h1>
 
     <table class="table">
         <thead>
@@ -19,7 +13,8 @@
                 <th>Description</th>
                 <th>DateDebut</th>
                 <th>DataFin</th>
-                <th>Actions</th>
+                <th>Status</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +25,7 @@
                 <td>{{ projet.Description }}</td>
                 <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</td>
                 <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>
+                <td>{{ projet.status }}</td>
                 <td>
                     <a href="{{ path('app_projet_show', {'id': projet.id}) }}">show</a>
                     <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a>
@@ -37,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="7">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

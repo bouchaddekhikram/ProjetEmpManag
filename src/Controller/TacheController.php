@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Projet;
 use App\Entity\Tache;
 use App\Form\TacheType;
 use App\Repository\TacheRepository;
@@ -11,6 +12,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @method getDoctrine()
+ */
 #[Route('/tache')]
 class TacheController extends AbstractController
 {
@@ -27,6 +31,88 @@ class TacheController extends AbstractController
             'taches' => $userTaches,
         ]);
     }
+
+    /**
+     * Function that returns a project's tasks
+     */
+    #[Route('/{projectId}/taches', name: 'app_tache_projectTaches', methods: ['GET'])]
+    public function projectTache($projectId, EntityManagerInterface $entityManager): Response
+    {
+        // Retrieve the project by ID
+        $project = $entityManager->getRepository(Projet::class)->find($projectId);
+
+        if (!$project) {
+            throw $this->createNotFoundException('Project not found');
+        }
+
+        // Retrieve tasks associated with the project
+        $projectTaches = $project->getTaches();
+
+        return $this->render('tache/project_taches.html.twig', [
+            'taches' => $projectTaches,
+        ]);
+    }
+
+    /**
+     * Function that enable to show a task details
+     */
+
+    #[Route('/{id}', name: 'app_project_tache_show', methods: ['GET'])]
+    public function showTask(Tache $tache): Response
+    {
+        return $this->render('tache/project_taches_show.html.twig', [
+            'tache' => $tache,
+        ]);
+    }
+
+    /**
+     * Function that enable the Manager to update his projects' tasks
+     */
+    #[Route('/{id}/edit/xx', name: 'app_tache_projectTachesedit', methods: ['GET', 'POST'])]
+    public function projectEdit(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(TacheType::class, $tache);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_tache_projectTaches', [ 'projectId' => $tache->getProjet()->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('tache/project_taches_edit.html.twig', [
+            'tache' => $tache,
+            'form' => $form,
+        ]);
+    }
+
+    /**
+     * Function that enable manager to add new task in a project
+     */
+    #[Route('/new/xxx', name: 'app_new_task', methods: ['GET', 'POST'])]
+    public function newTask(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $tache = new Tache();
+        $form = $this->createForm(TacheType::class, $tache);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->persist($tache);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_tache_projectTaches', [ 'projectId' => $tache->getProjet()->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('tache/project_new_task.html.twig', [
+            'tache' => $tache,
+            'form' => $form,
+        ]);
+    }
+
+
+
+
     #[Route('/', name: 'app_tache_index', methods: ['GET'])]
     public function index(TacheRepository $tacheRepository): Response
     {
@@ -35,7 +121,7 @@ class TacheController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_tache_new', methods: ['GET', 'POST'])]
+    #[Route('/new/xx', name: 'app_tache_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $tache = new Tache();
@@ -55,7 +141,7 @@ class TacheController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_tache_show', methods: ['GET'])]
+    #[Route('/{id}/xx', name: 'app_tache_show', methods: ['GET'])]
     public function show(Tache $tache): Response
     {
         return $this->render('tache/show.html.twig', [
