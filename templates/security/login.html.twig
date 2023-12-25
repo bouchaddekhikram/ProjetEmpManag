@@ -3,11 +3,14 @@
 {% block pageTitle %}
     Log in
 {% endblock %}
+{% block navbar_search %}{% endblock %}
+{% block navbar_button %}{% endblock %}
+{% block layoutSidenav_nav %}{% endblock %}
+{% block Sidebar_toggle %}{% endblock %}
+
 
 {% block body %}
-{% block navBar %}
 
-{% endblock %}
     <form method="post">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -31,8 +34,7 @@
         </div>
         <button type="submit" class="btn btn-primary"> Sign in</button>
     </form>
-{% block navSide %}
-    {% endblock %}
+
 {% endblock %}
 
     {#        <label for="inputEmail">Email</label> #}

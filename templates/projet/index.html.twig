@@ -1,21 +1,21 @@
 {% extends 'template.html.twig' %}
 
 {% block title %}Projet index{% endblock %}
-
+  {% block pageTitle %}
+      List Project
+  {% endblock %}
 {% block body %}
-    <h1>Projet index</h1>
-
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomProjet</th>
-                <th>Description</th>
-                <th>DateDebut</th>
-                <th>DataFin</th>
-                <th>Status</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>NomProjet</th>
+            <th>Description</th>
+            <th>DateDebut</th>
+            <th>DataFin</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for projet in projets %}
@@ -27,8 +27,11 @@
                 <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>
                 <td>{{ projet.status }}</td>
                 <td>
-                    <a href="{{ path('app_projet_show', {'id': projet.id}) }}">show</a>
-                    <a href="{{ path('app_projet_edit', {'id': projet.id}) }}">edit</a>
+                    <div class="d-flex ">
+                        <a href="{{ path('app_user_edit', {'id': projet.id}) }}" class="btn btn-outline-primary me-3">Edit</a>
+                        {{ include('projet/_delete_form.html.twig') }}
+                        {#                        <a href="{{ path('app_dashboard') }}" class="btn btn-outline-success me-3">Create new</a>#}
+                    </div>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +42,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_projet_new') }}">Create new</a>
+    <a href="{{ path('app_dashboard') }}">back to dashboard</a>
 {% endblock %}

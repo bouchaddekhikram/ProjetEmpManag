@@ -1,0 +1,61 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block pageTitle %}
+    Dashboard
+{% endblock %}
+
+
+
+{% block body %}
+
+    <div class="card text-center m-4">
+        <div class="card-header">
+            Employee
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Employee Management</h5>
+            <p class="card-text"></p>
+            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">View</a>
+            <a href="{{path('app_user_new')}}" class="btn btn-outline-primary">Create</a>
+            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">Update/Delete</a>
+        </div>
+    </div>
+    <div class="card text-center m-4">
+        <div class="card-header">
+            Project Manager
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">PM Management</h5>
+            <p class="card-text"></p>
+            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">View</a>
+            <a href="{{path('app_user_new')}}" class="btn btn-outline-primary">Create</a>
+            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">Update/Delete</a>
+        </div>
+    </div>
+    <div class="card text-center m-4">
+        <div class="card-header">
+            Administrator
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Administrator Management</h5>
+            <p class="card-text"></p>
+            <a href="{{ path('app_user_index_admin') }}" class="btn btn-outline-primary">View</a>
+            <a href="{{path('app_user_new')}}" class="btn btn-outline-primary">Create</a>
+            <a href="{{ path('app_user_index_admin') }}" class="btn btn-outline-primary">Update/Delete</a>
+        </div>
+    </div>
+    <div class="card text-center m-4">
+        <div class="card-header">
+            Proejct
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Project Management</h5>
+            <p class="card-text"></p>
+            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">View</a>
+            <a href="{{path('app_projet_new')}}" class="btn btn-outline-primary">Create</a>
+            <a href="{{ path('app_user_index_admin') }}" class="btn btn-outline-primary">Update/Delete</a>
+        </div>
+    </div>
+{% endblock %}
