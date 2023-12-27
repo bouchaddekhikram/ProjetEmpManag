@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Projet;
 use App\Entity\Tache;
 use App\Form\TacheType;
+use App\Form\TacheTypeProject;
 use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -89,11 +90,17 @@ class TacheController extends AbstractController
     /**
      * Function that enable manager to add new task in a project
      */
-    #[Route('/new/xxx', name: 'app_new_task', methods: ['GET', 'POST'])]
-    public function newTask(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{projectId}/xxx', name: 'app_new_task', methods: ['GET', 'POST'])]
+    public function newTask(Request $request, EntityManagerInterface $entityManager, int $projectId): Response
     {
         $tache = new Tache();
-        $form = $this->createForm(TacheType::class, $tache);
+        // Get the project based on the provided projectId
+        $project = $entityManager->getRepository(Projet::class)->find($projectId);
+
+        // Set the project for the task
+        $tache->setProjet($project);
+
+        $form = $this->createForm(TacheTypeProject::class, $tache);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

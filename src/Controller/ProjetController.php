@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Projet;
 use App\Form\ProjetType;
+use App\Form\ProjetTypeEdit;
 use App\Repository\ProjetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -87,7 +88,7 @@ class ProjetController extends AbstractController
     #[Route('/{id}/edit/manager', name: 'app_projet_manager_edit', methods: ['GET', 'POST'])]
     public function managerEdit(Request $request, Projet $projet, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ProjetType::class, $projet);
+        $form = $this->createForm(ProjetTypeEdit::class, $projet);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
