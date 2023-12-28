@@ -7,5 +7,13 @@
 
     {{ include('tache/_form.html.twig') }}
 
+
     <a href="{{ path('app_tache_index') }}">back to list</a>
+    {% block flash_messages %}
+        {% for flashMessage in app.flashes('error') %}
+            <div class="alert alert-danger" role="alert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    {% endblock %}
 {% endblock %}

@@ -18,7 +18,7 @@ class UserController extends AbstractController
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/index.php.twig', [
             'users' => $userRepository->findAll(),
         ]);
     }
@@ -27,7 +27,7 @@ class UserController extends AbstractController
     {
         $employees = $userRepository->findByRole('ROLE_EMPLOYEE');
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/index.php.twig', [
             'users' => $employees,
         ]);
     }
@@ -37,7 +37,7 @@ class UserController extends AbstractController
     {
         $projectManagers = $userRepository->findByRole('ROLE_PROJECT_MANAGER');
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/index.php.twig', [
             'users' => $projectManagers,
         ]);
     }
@@ -46,7 +46,7 @@ class UserController extends AbstractController
     {
         $admins = $userRepository->findByRole('ROLE_ADMIN');
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/index.php.twig', [
             'users' => $admins,
         ]);
     }
@@ -55,7 +55,7 @@ class UserController extends AbstractController
     {
         $employeesAndPMs = $userRepository->findByRole2(['ROLE_EMPLOYEE', 'ROLE_PROJECT_MANAGER']);
 
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/index.php.twig', [
             'users' => $employeesAndPMs,
         ]);
     }

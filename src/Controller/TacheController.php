@@ -28,7 +28,7 @@ class TacheController extends AbstractController
         // Retrieve only the tasks belonging to the current user
         $userTaches = $user->getTaches();
 
-        return $this->render('tache/index.html.twig', [
+        return $this->render('tache/index.php.twig', [
             'taches' => $userTaches,
         ]);
     }
@@ -105,11 +105,22 @@ class TacheController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $entityManager->persist($tache);
-            $entityManager->flush();
+            // Check if the task dates are within the project dates
+            $taskStartDate = $tache->getDateDebut();
+            $taskFinishDate = $tache->getDataFin();
 
-            return $this->redirectToRoute('app_tache_projectTaches', [ 'projectId' => $tache->getProjet()->getId()], Response::HTTP_SEE_OTHER);
-        }
+            if (
+                $taskStartDate < $project->getDateDebut() ||
+                $taskFinishDate > $project->getDataFin()
+            ) {
+                // Handle the case when task dates are outside the project dates
+                $this->addFlash('error', 'Task dates must be within the project dates.');
+            } else {
+                $entityManager->persist($tache);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_tache_projectTaches', ['projectId' => $tache->getProjet()->getId()], Response::HTTP_SEE_OTHER);
+            }     }
 
         return $this->render('tache/project_new_task.html.twig', [
             'tache' => $tache,
@@ -123,7 +134,7 @@ class TacheController extends AbstractController
     #[Route('/', name: 'app_tache_index', methods: ['GET'])]
     public function index(TacheRepository $tacheRepository): Response
     {
-        return $this->render('tache/index.html.twig', [
+        return $this->render('tache/index.php.twig', [
             'taches' => $tacheRepository->findAll(),
         ]);
     }
