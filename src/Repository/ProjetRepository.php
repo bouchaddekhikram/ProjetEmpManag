@@ -35,7 +35,7 @@ class ProjetRepository extends ServiceEntityRepository
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('p')
+//        return $this->createQueryBuilder('p')llllllllll
 //            ->andWhere('p.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->orderBy('p.id', 'ASC')
