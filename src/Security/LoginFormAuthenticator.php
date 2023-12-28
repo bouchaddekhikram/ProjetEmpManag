@@ -55,10 +55,10 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($this->urlGenerator->generate("app_dashboard"));
         }
         elseif (in_array("ROLE_PROJECT_MANAGER", $user->getRoles(), true)){
-            return new RedirectResponse($this->urlGenerator->generate("app_projet_userProjets"));
+            return new RedirectResponse($this->urlGenerator->generate("app_dashboard_pm"));
         }
         elseif (in_array("ROLE_EMPLOYEE", $user->getRoles(), true)){
-            return new RedirectResponse($this->urlGenerator->generate("app_projet_userProjets"));
+            return new RedirectResponse($this->urlGenerator->generate("app_dashboard_emp"));
         }
 
         // For example:
