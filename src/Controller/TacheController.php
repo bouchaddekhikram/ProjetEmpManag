@@ -28,7 +28,7 @@ class TacheController extends AbstractController
         // Retrieve only the tasks belonging to the current user
         $userTaches = $user->getTaches();
 
-        return $this->render('tache/index.php.twig', [
+        return $this->render('tache/index.html.twig', [
             'taches' => $userTaches,
         ]);
     }
@@ -134,7 +134,7 @@ class TacheController extends AbstractController
     #[Route('/', name: 'app_tache_index', methods: ['GET'])]
     public function index(TacheRepository $tacheRepository): Response
     {
-        return $this->render('tache/index.php.twig', [
+        return $this->render('tache/index.html.twig', [
             'taches' => $tacheRepository->findAll(),
         ]);
     }
