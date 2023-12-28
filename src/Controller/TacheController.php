@@ -19,19 +19,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/tache')]
 class TacheController extends AbstractController
 {
-    #[Route('/userTaches', name: 'app_tache_userTaches', methods: ['GET'])]
-    public function userTache(): Response
-    {
-        // Get the currently logged-in user
-        $user = $this->getUser();
-
-        // Retrieve only the tasks belonging to the current user
-        $userTaches = $user->getTaches();
-
-        return $this->render('tache/index.html.twig', [
-            'taches' => $userTaches,
-        ]);
-    }
+//    #[Route('/userTaches', name: 'app_tache_userTaches', methods: ['GET'])]
+//    public function userTache(): Response
+//    {
+//        // Get the currently logged-in user
+//        $user = $this->getUser();
+//
+//        // Retrieve only the tasks belonging to the current user
+//        $userTaches = $user->getTaches();
+//
+//        return $this->render('tache/index.html.twig', [
+//            'taches' => $userTaches,
+//        ]);
+//    }
 
     /**
      * Function that returns a project's tasks

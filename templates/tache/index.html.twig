@@ -17,7 +17,7 @@
                 <th>DataFin</th>
                 <th>Status</th>
                 <th>Projet</th>
-                <th>Employee</th>
+{#                <th>Employee</th>#}
                 <th>actions</th>
             </tr>
         </thead>
@@ -30,7 +30,7 @@
                 <td>{{ tache.dataFin ? tache.dataFin|date('Y-m-d') : '' }}</td>
                 <td>{{ tache.Status }}</td>
                 <td>{{ tache.projet.nomProjet }}</td>
-                <td>{{ tache.users.Firstname }} {{ tache.users.Lastname }}</td>
+{#                <td>{{ tache.users.Firstname }} {{ tache.users.Lastname }}</td>#}
 
                 <td>
                     <a href="{{ path('app_tache_show', {'id': tache.id}) }}">show</a>

@@ -122,7 +122,7 @@ class ProjetController extends AbstractController
     }
 
 
-
+    #[IsGranted("ROLE_ADMIN")]
     #[Route('/{id}', name: 'app_projet_delete', methods: ['POST'])]
     public function delete(Request $request, Projet $projet, EntityManagerInterface $entityManager): Response
     {

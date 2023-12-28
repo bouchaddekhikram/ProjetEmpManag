@@ -20,6 +20,15 @@ class ProjetRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Projet::class);
     }
+    public function countProjectsByStatus(string $status): int
+    {
+        return $this->createQueryBuilder('p')
+            ->select('COUNT(p.id)')
+            ->where('p.status = :status')
+            ->setParameter('status', $status)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
 //    /**
 //     * @return Projet[] Returns an array of Projet objects

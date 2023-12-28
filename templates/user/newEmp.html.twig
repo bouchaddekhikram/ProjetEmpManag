@@ -1,0 +1,19 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}New Emplyee{% endblock %}
+{% block pageTitle %}
+    {% if 'ROLE_ADMIN' in role %}
+        {% set c = 'Administrator' %}
+    {% elseif 'ROLE_EMPLOYEE' in role %}
+        {% set c = 'Employee' %}
+    {% elseif 'ROLE_PROJECT_MANAGER' in role %}
+        {% set c = 'Project Manager' %}
+    {% endif %}
+    Create new {{ c }}
+{% endblock %}
+{% block body %}
+
+    {{ include('user/emp_form.html.twig') }}
+
+    <a href="{{ path('app_dashboard') }}">back to dashboard</a>
+{% endblock %}
