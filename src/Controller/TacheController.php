@@ -33,6 +33,42 @@ class TacheController extends AbstractController
 //        ]);
 //    }
 
+
+    #[Route('/userTaches', name: 'app_tache_userTaches', methods: ['GET'])]
+    public function userTache(): Response
+    {
+        // Get the currently logged-in user
+        $user = $this->getUser();
+
+        // Retrieve tasks belonging to the current user
+        $userTaches = $user->getTaches();
+
+        // Extract projects from the tasks
+        $userProjects = [];
+
+        foreach ($userTaches as $tache) {
+            $project = $tache->getProjet();
+
+            // Ensure the project is not null before adding to the list
+            if ($project !== null) {
+                $projectId = $project->getId();
+
+                // Check if the project ID is already in the list
+                if (!isset($userProjects[$projectId])) {
+                    $userProjects[$projectId] = $project;
+                }
+            }
+        }
+
+        // Convert the associative array to a simple indexed array
+        $userProjects = array_values($userProjects);
+
+
+        return $this->render('projet/employee_projects.html.twig', [
+            'projects' => $userProjects,
+        ]);
+    }
+
     /**
      * Function that returns a project's tasks
      */
