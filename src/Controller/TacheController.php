@@ -113,6 +113,8 @@ class TacheController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            // Call the method to update Projet status
+            $this->updateProjetStatus($tache->getProjet(),$entityManager);
 
             return $this->redirectToRoute('app_tache_projectTaches', [ 'projectId' => $tache->getProjet()->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -121,6 +123,40 @@ class TacheController extends AbstractController
             'tache' => $tache,
             'form' => $form,
         ]);
+    }
+
+
+    /**
+     * Function to update the Projet status based on Tache statuses
+     */
+    private function updateProjetStatus(Projet $projet, EntityManagerInterface $entityManager): void
+    {
+        $taches = $projet->getTaches();
+        $projetStatus = 'Pending'; // Set default status to 'Pending'
+
+        $allCompleted = true; // Flag to track if all tasks are completed
+
+        foreach ($taches as $tache) {
+            $tacheStatus = $tache->getStatus();
+
+            // Define your logic for updating the projet status based on tache status
+            if ($tacheStatus === 'Waiting') {
+                $projetStatus = 'Waiting';
+                $allCompleted =false;
+                break;
+            } elseif ($tacheStatus !== 'Completed') {
+                // If any task is not 'Completed', set the flag to false
+                $allCompleted = false;
+            }
+        }
+
+        // If all tasks are 'Completed', set projet status to 'Completed'
+        if ($allCompleted) {
+            $projetStatus = 'Completed';
+        }
+
+        $projet->setStatus($projetStatus);
+         $entityManager->flush();
     }
 
     /**
