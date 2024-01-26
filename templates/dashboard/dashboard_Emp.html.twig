@@ -5,13 +5,18 @@
 {% block pageTitle %}
     Dashboard
 {% endblock %}
+        {% block link %}
+            <a class="navbar-brand ps-3" href="/dashboardEMP">Employee Management</a>
+
+        {% endblock %}
+
 
 
 
 {% block body %}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <div class="container">
+    <div class="container ">
         <div class="row">
             <div class="col-md-3">
                 <div class="card-counter success">
@@ -29,21 +34,21 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="card-counter primary">
-                    <i class="fa fa-users fa-2x"></i>
-                    <span class="count-numbers">{{ count_employee}}</span>
-                    <span class="count-name">Employees</span>
-                </div>
-            </div>
+{#            <div class="col-md-3">#}
+{#                <div class="card-counter primary">#}
+{#                    <i class="fa fa-users fa-2x"></i>#}
+{#                    <span class="count-numbers">{{ count_employee}}</span>#}
+{#                    <span class="count-name">Employees</span>#}
+{#                </div>#}
+{#            </div>#}
 
-            <div class="col-md-3">
-                <div class="card-counter info">
-                    <i class="fa fa-user fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_manager}}</span>
-                    <span class="count-name">Project Manager</span>
-                </div>
-            </div>
+{#            <div class="col-md-3">#}
+{#                <div class="card-counter info">#}
+{#                    <i class="fa fa-user fa-2x"></i>#}
+{#                    <span class="count-numbers">{{ count_project_manager}}</span>#}
+{#                    <span class="count-name">Project Manager</span>#}
+{#                </div>#}
+{#            </div>#}
         </div>
     </div>
 
@@ -71,7 +76,7 @@
     </div>
     <div class="card text-center m-4">
         <div class="card-header">
-            Proejct
+            Project
         </div>
         <div class="card-body">
             <h5 class="card-title">Project Management</h5>

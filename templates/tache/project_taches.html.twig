@@ -53,7 +53,7 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if taches %}
+    {% if taches is not empty %}
         <a href="{{ path('app_new_task', {'projectId': taches[0].projet.id}) }}">Create new</a>
     {% else %}
         <p>No tasks available</p>

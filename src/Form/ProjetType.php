@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Projet;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -28,9 +29,20 @@ class ProjetType extends AbstractType
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
-'choice_label' => 'firstname',
-            ])
-        ;
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.roles LIKE :role')
+                        ->setParameter('role', '%"ROLE_PROJECT_MANAGER"%');
+                },
+                'choice_label' => function ($user) {
+                    return $user->getFirstname();
+                },
+            ]);
+//            ->add('user', EntityType::class, [
+//                'class' => User::class,
+//'choice_label' => 'firstname',
+//            ])
+//        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
