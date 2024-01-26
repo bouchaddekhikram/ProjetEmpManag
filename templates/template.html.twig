@@ -15,8 +15,8 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet"/>
-{#    <link href="{{ asset('node_modules/@fortawesome/fontawesome-free/css/all.css') }}" rel="stylesheet"/>#}
-{#    <link href="{{ asset('node_modules/select2/dist/css/select2.min.css') }}" rel="stylesheet"/>#}
+    {#    <link href="{{ asset('node_modules/@fortawesome/fontawesome-free/css/all.css') }}" rel="stylesheet"/> #}
+    {#    <link href="{{ asset('node_modules/select2/dist/css/select2.min.css') }}" rel="stylesheet"/> #}
     {% block stylesheets %}
     {% endblock %}
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -25,8 +25,12 @@
     <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
+        {% block link %}
+
         <a class="navbar-brand ps-3" href="/dashboard">Employee Management</a>
         <!-- Sidebar Toggle-->
+        {% endblock %}
+
         {% block Sidebar_toggle %}
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                         class="fas fa-bars"></i></button>
@@ -34,12 +38,12 @@
         <!-- Navbar Search-->
         {% block navbar_search %}
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
-                           aria-describedby="btnNavbarSearch"/>
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i>
-                    </button>
-                </div>
+{#                <div class="input-group">#}
+{#                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."#}
+{#                           aria-describedby="btnNavbarSearch"/>#}
+{#                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i>#}
+{#                    </button>#}
+{#                </div>#}
             </form>
         {% endblock %}
         <!-- Navbar-->
@@ -85,9 +89,12 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     {% block navbars %}
                                         <a class="nav-link" href="/user/newEmployee/ROLE_EMPLOYEE">Add Employee</a>
-                                        <a class="nav-link" href="{{ path('app_user_index_employee')}}">Edit Employee</a>
-                                        <a class="nav-link" href="{{ path('app_user_index_employee')}}">Update Employee</a>
-                                        <a class="nav-link" href="{{ path('app_user_index_employee') }}">Delete Employee</a>
+                                        <a class="nav-link" href="{{ path('app_user_index_employee') }}">Edit
+                                            Employee</a>
+                                        <a class="nav-link" href="{{ path('app_user_index_employee') }}">Update
+                                            Employee</a>
+                                        <a class="nav-link" href="{{ path('app_user_index_employee') }}">Delete
+                                            Employee</a>
                                     {% endblock %}
                                 </nav>
                             </div>
@@ -150,21 +157,24 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     {% block navbars2 %}
                                         <a class="nav-link" href="/user/newEmployee/ROLE_PROJECT_MANAGER">Add PM</a>
-                                        <a class="nav-link" href="{{ path('app_user_index_project_manager') }}">Edit PM</a>
-                                        <a class="nav-link" href="{{ path('app_user_index_project_manager') }}">Update PM</a>
-                                        <a class="nav-link" href="{{ path('app_user_index_project_manager') }}">Delete PM</a>
+                                        <a class="nav-link" href="{{ path('app_user_index_project_manager') }}">Edit
+                                            PM</a>
+                                        <a class="nav-link" href="{{ path('app_user_index_project_manager') }}">Update
+                                            PM</a>
+                                        <a class="nav-link" href="{{ path('app_user_index_project_manager') }}">Delete
+                                            PM</a>
                                     {% endblock %}
                                 </nav>
                             </div>
-{#                            <div class="sb-sidenav-menu-heading">Addons</div>#}
-{#                            <a class="nav-link" href="charts.html">#}
-{#                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>#}
-{#                                Charts#}
-{#                            </a>#}
-{#                            <a class="nav-link" href="tables.html">#}
-{#                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>#}
-{#                                Tables#}
-{#                            </a>#}
+                            {#                            <div class="sb-sidenav-menu-heading">Addons</div> #}
+                            {#                            <a class="nav-link" href="charts.html"> #}
+                            {#                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div> #}
+                            {#                                Charts #}
+                            {#                            </a> #}
+                            {#                            <a class="nav-link" href="tables.html"> #}
+                            {#                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div> #}
+                            {#                                Tables #}
+                            {#                            </a> #}
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
@@ -196,18 +206,18 @@
                 </div>
             </main>
             {% block footer %}
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </footer>
+                </footer>
             {% endblock %}
         </div>
     </div>

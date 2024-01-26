@@ -34,9 +34,6 @@ class ProjetController extends AbstractController
     }
 
 
-
-
-
     #[Route('/', name: 'app_projet_index', methods: ['GET'])]
     public function index(ProjetRepository $projetRepository): Response
     {

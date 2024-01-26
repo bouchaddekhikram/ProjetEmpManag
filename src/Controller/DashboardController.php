@@ -65,4 +65,19 @@ class DashboardController extends AbstractController
             'count_project_manager' => $countProjectManagers,
         ]);
     }
+    #[Route('/dashboardAdmin', name: 'app_dashboard_admin')]
+    public function dashboard_AD(UserRepository $userRepository, ProjetRepository $projetRepository): Response
+    {
+        $countProjectCompeted = $projetRepository->countProjectsByStatus('Competed');
+        $countProjectWaiting = $projetRepository->countProjectsByStatus('Waiting');
+        $countEmployees = $userRepository->countUsersByRole('ROLE_EMPLOYEE');
+        $countProjectManagers = $userRepository->countUsersByRole('ROLE_PROJECT_MANAGER');
+
+        return $this->render('dashboard/dashboard_Admin.html.twig', [
+            'count_project_Competed' => $countProjectCompeted,
+            'count_project_Waiting' => $countProjectWaiting,
+            'count_employee' => $countEmployees,
+            'count_project_manager' => $countProjectManagers,
+        ]);
+    }
 }
