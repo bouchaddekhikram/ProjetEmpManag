@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Projet;
+use App\Entity\Tache;
 use App\Form\ProjetType;
 use App\Form\ProjetTypeEdit;
 use App\Repository\ProjetRepository;
@@ -32,6 +33,14 @@ class ProjetController extends AbstractController
             'projets' => $userProjets,
         ]);
     }
+
+
+
+
+
+
+
+
 
 
     #[Route('/', name: 'app_projet_index', methods: ['GET'])]

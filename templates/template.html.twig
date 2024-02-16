@@ -27,7 +27,7 @@
         <!-- Navbar Brand-->
         {% block link %}
 
-        <a class="navbar-brand ps-3" href="/dashboard">Employee Management</a>
+        <a class="navbar-brand ps-3" href="{{ path('app_homepage') }}">Employee Management</a>
         <!-- Sidebar Toggle-->
         {% endblock %}
 
@@ -196,13 +196,13 @@
                     {#                    <li class="breadcrumb-item"><a href="index.php">Dashboard</a></li> #}
                     {#                    <li class="breadcrumb-item active">Sidenav Light</li> #}
                     {#                </ol> #}
+                    {% block body %}
                     <div class="card mb-4">
                         <div class="card-body">
-                            {% block body %}
                                 Template body
-                            {% endblock %}
                         </div>
                     </div>
+                    {% endblock %}
                 </div>
             </main>
             {% block footer %}

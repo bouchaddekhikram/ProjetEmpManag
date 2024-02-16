@@ -1,51 +1,76 @@
-{% extends 'template.html.twig' %}
+{#{% extends 'template.html.twig' %}#}
 
-{% block title %}Projet index{% endblock %}
-  {% block pageTitle %}
-       Projects List
-  {% endblock %}
+{#{% block title %}Projet index{% endblock %}#}
+
+{% block pageTitle %}
+    <span style="font-size: xx-large ;"> Projects List </span>
+{% endblock %}
+
+{% block layoutSidenav_nav %}{% endblock %}
+ {% block navbars2 %}{% endblock %}
 {% block body %}
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Project Name</th>
-            <th>Description</th>
-            <th>Start date</th>
-            <th>Finish Date</th>
-            <th>Status</th>
-            <th colspan="2">actions</th>
-        </tr>
-        </thead>
-        <tbody>
+{#    <div class="container-md">#}
+{#        <table class="table">#}
+{#            <thead>#}
+{#            <tr>#}
+{#                <th>Project Name</th>#}
+{#                <th>Description</th>#}
+{#                <th>Start Date</th>#}
+{#                <th>Finish Date</th>#}
+{#                <th>Status</th>#}
+{#                <th>Actions</th>#}
+{#            </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            {% for projet in projects %}#}
+{#                <tr>#}
+{#                    <td>{{ projet.nomProjet }}</td>#}
+{#                    <td>{{ projet.Description }}</td>#}
+{#                    <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</td>#}
+{#                    <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>#}
+{#                    <td>{{ projet.status }}</td>#}
+{#                    <td>#}
+{#                        <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}" class="btn btn-primary" title="Show" style="background: #FEBB5F ; border-color: #FEBB5F"><i class="fas fa-eye"></i> Show</a>#}
+{#                        <!-- Uncomment the line below if you want to include the Edit button -->#}
+{#                        <!-- <a href="{{ path('app_Taches_editEmp', {'id': projet.id}) }}" class="btn btn-warning" title="Edit"><i class="fas fa-edit"></i> Edit</a> -->#}
+{#                    </td>#}
+{#                </tr>#}
+{#            {% else %}#}
+{#                <tr>#}
+{#                    <td colspan="6" class="text-center">No records found</td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+{#    </div>#}
+    <div class="row">
         {% for projet in projects %}
-            <tr>
-                <td>{{ projet.nomProjet }}</td>
-                <td>{{ projet.Description }}</td>
-                <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</td>
-                <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>
-                <td>{{ projet.status }}</td>
-                <td>
-                    {# Redirection the manager to view and Update his projects #}
-                    <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}" title="Show"><i class="fas fa-eye"></i></a>
-                </td>
-                <td>
-                    <a href="{{ path('app_projet_manager_edit', {'id': projet.id}) }}" title="Edit"><i class="fas fa-edit"></i></a>
-                </td>
+            <div class="col-md-6 mb-3">
+                <div class="card" style="background: #F7F7F7">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ projet.nomProjet }}</h5>
+                        {% if manager is defined %}
+                            <p class="card-text"><i class="fas fa-user" style="color: #FE9D15;"></i><strong> Manager:</strong>  {{ manager }}</p>
+                        {% endif %}
 
-                {#                <td>#}
-{#                    #}{# Redirection the manager to view and Update his projects #}
-{#                    <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}">show</a>#}
-{#                    <a href="{{ path('app_projet_manager_edit', {'id': projet.id}) }}">edit</a>#}
-{#                </td>#}
-            </tr>
+                        <p class="card-text"><i class="fas fa-calendar"  style="color: #FE9D15;"></i><strong> Start Date:</strong>  {{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</p>
+                        <p class="card-text"><i class="fas fa-calendar" style="color: #FE9D15;"></i><strong> Finish Date:</strong>  {{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</p>
+                        <p class="card-text"><strong> Status:</strong> {% if projet.status == 'Completed' %}<i class="fas fa-check-circle text-success"></i> {% else %}<i class="fas fa-spinner text-warning"></i> {% endif %} {{ projet.status }}</p>
+                        <a href="{{ path('app_tache_projectTaches_User', {'projectId': projet.id}) }}" class="btn btn-primary" title="Show" style="background: #FEBB5F; border-color: #FEBB5F"><i class="fas fa-eye"></i> Show Tasks</a>
+                        {# Add Edit button if needed #}
+                        {# <a href="{{ path('app_Taches_editEmp', {'id': projet.id}) }}" class="btn btn-warning" title="Edit"><i class="fas fa-edit"></i> Edit</a> #}
+                    </div>
+                </div>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
+            <div class="col-md-12 text-center">
+                <p>No records found</p>
+            </div>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 
-{#    <a href="{{ path('app_projet_new') }}">Create new</a>#}
+
 {% endblock %}
+
+{% block footer %}{% endblock %}

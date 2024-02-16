@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Projet;
 use App\Entity\Tache;
 use App\Form\TacheType;
+use App\Form\TacheTypeEmp;
 use App\Form\TacheTypeProject;
 use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,6 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/tache')]
 class TacheController extends AbstractController
 {
+
+    
 //    #[Route('/userTaches', name: 'app_tache_userTaches', methods: ['GET'])]
 //    public function userTache(): Response
 //    {
@@ -33,8 +37,11 @@ class TacheController extends AbstractController
 //        ]);
 //    }
 
+    /**
+     * Function returns the projects of an Employee
+     */
 
-    #[Route('/userTaches', name: 'app_tache_userTaches', methods: ['GET'])]
+    #[Route('/userProjects', name: 'app_emp_userProjects', methods: ['GET'])]
     public function userTache(): Response
     {
         // Get the currently logged-in user
@@ -45,14 +52,14 @@ class TacheController extends AbstractController
 
         // Extract projects from the tasks
         $userProjects = [];
-
+        $manager = null;
         foreach ($userTaches as $tache) {
             $project = $tache->getProjet();
 
             // Ensure the project is not null before adding to the list
             if ($project !== null) {
                 $projectId = $project->getId();
-
+                $manager = $project->getUser();
                 // Check if the project ID is already in the list
                 if (!isset($userProjects[$projectId])) {
                     $userProjects[$projectId] = $project;
@@ -66,8 +73,51 @@ class TacheController extends AbstractController
 
         return $this->render('projet/employee_projects.html.twig', [
             'projects' => $userProjects,
+            'manager' => $manager !== null ? $manager->getFirstName() : null,
         ]);
     }
+
+
+    /**
+     * Function that returns a project's tasks of the current user
+     */
+    #[Route('/{projectId}/taches', name: 'app_tache_projectTaches_User', methods: ['GET'])]
+    public function projectTacheUser($projectId,Security $security, EntityManagerInterface $entityManager): Response
+    {
+        // Retrieve the current user
+        $user = $security->getUser();
+
+
+        // Retrieve the project by ID
+        $project = $entityManager->getRepository(Projet::class)->find($projectId);
+
+        if (!$project) {
+            throw $this->createNotFoundException('Project not found');
+        }
+
+        // Retrieve tasks associated with the project and the current user
+        $projectTaches = $project->getTaches();
+
+//            ->filter(function ($tache) use ($user) {
+//            // Assuming there's a method like `getUser` to retrieve the user associated with the task
+//            return $tache->getUsers() === $user;
+//        });
+
+        if($projectTaches->isEmpty()){
+            return $this->redirectToRoute('app_new_task',['projectId' => $project->getId()]);
+        }
+
+
+        return $this->render('tache/project_taches_emp.html.twig', [
+            'taches' => $projectTaches,
+            'projet'=>$project,
+            'user' =>$user,
+        ]);
+    }
+
+
+
+
 
     /**
      * Function that returns a project's tasks
@@ -85,6 +135,11 @@ class TacheController extends AbstractController
         // Retrieve tasks associated with the project
         $projectTaches = $project->getTaches();
 
+        if($projectTaches->count() == 0){
+            return $this->redirectToRoute('app_new_task',['projectId' => $project->getId()]);
+        }
+
+
         return $this->render('tache/project_taches.html.twig', [
             'taches' => $projectTaches,
         ]);
@@ -101,14 +156,13 @@ class TacheController extends AbstractController
             'tache' => $tache,
         ]);
     }
-
     /**
      * Function that enable the Manager to update his projects' tasks
      */
     #[Route('/{id}/edit/xx', name: 'app_tache_projectTachesedit', methods: ['GET', 'POST'])]
     public function projectEdit(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(TacheType::class, $tache);
+        $form = $this->createForm(TacheTypeProject::class, $tache);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -123,6 +177,28 @@ class TacheController extends AbstractController
             'tache' => $tache,
             'form' => $form,
         ]);
+    }
+
+
+    #[Route('/{id}/edit/emp', name: 'app_Taches_editEmp', methods: ['GET', 'POST'])]
+    public function projectEditEmp(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(TacheTypeEmp::class, $tache);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            // Call the method to update Projet status
+            $this->updateProjetStatus($tache->getProjet(),$entityManager);
+
+            return $this->redirectToRoute('app_tache_projectTaches', [ 'projectId' => $tache->getProjet()->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('tache/project_taches_edit.html.twig', [
+            'tache' => $tache,
+            'form' => $form,
+        ]);
+
     }
 
 
@@ -261,10 +337,12 @@ class TacheController extends AbstractController
     public function delete(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $tache->getId(), $request->request->get('_token'))) {
+           $idP = $tache->getProjet()->getId();
+
             $entityManager->remove($tache);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_projet_userProjets', [], Response::HTTP_SEE_OTHER);
     }
 }

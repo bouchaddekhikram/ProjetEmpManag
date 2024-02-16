@@ -1,87 +1,78 @@
 {% extends 'template.html.twig' %}
 
 {% block title %}Dashboard{% endblock %}
+{% block layoutSidenav_nav %}{% endblock %}
+{% block pageTitle %} {% endblock %}
+{% block link %}<a class="navbar-brand ps-3" href="/dashboardEMP">Employee Space</a>{% endblock %}
 
-{% block pageTitle %}
-    Dashboard
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
 {% endblock %}
-        {% block link %}
-            <a class="navbar-brand ps-3" href="/dashboardEMP">Employee Management</a>
 
-        {% endblock %}
-
-
-
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script>
+        $(document).ready(() => $('#calendar').fullCalendar({
+            // header: { left: 'prev,next today', center: 'title', right: 'month,agendaWeek,agendaDay' },
+            // events: [{ title: 'Project 1', start: '2023-01-01' }, { title: 'Project 2', start: '2023-01-05' }]
+        }));
+    </script>
+{% endblock %}
 
 {% block body %}
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-    <div class="container ">
+<div class="card mb-4  w-100 mx-0">
+    <div class="container mb-4">
         <div class="row">
-            <div class="col-md-3">
-                <div class="card-counter success">
-                    <i class="fa fa-check fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_Competed }}</span>
-                    <span class="count-name">Project Completed</span>
+            <div class="col-md-4" style=" padding-top: 30px;"> <!-- Add mb-4 for margin-bottom -->
+                <!-- Calendar div with a width of 400px and height of 300px -->
+               <span style="font-size: xx-large">Welcome,</span>  <span style="font-size: xx-large ;color: #FE9D15;">{{ user }}!</span> <br>
+                <span style="font-size: x-large">Here is your agenda for today</span>
+                <div id="calendar" style=" padding-top: 30px; width: 400px; height: 400px; background: #FFFFFF ;"></div>
+            </div>
+            <div class="col-md-8" style=" padding-top: 30px;">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="card-counter success" style="background: #2DBDB4">
+                            <i class="fa fa-check fa-2x"></i>
+                            <span class="count-numbers">{{ count_project_Competed }}</span>
+                            <span class="count-name">Project Completed</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="card-counter danger" style="background: #C0F0EE">
+                            <i class="fa fa-spinner fa-2x"></i>
+                            <span class="count-numbers">{{ count_project_Waiting }}</span>
+                            <span class="count-name">Project Waiting</span>
+                        </div>
+                    </div>
                 </div>
+
+                    {% include 'projet/employee_projects.html.twig' with {'projects': projects} %}
+
             </div>
 
-            <div class="col-md-3">
-                <div class="card-counter danger">
-                    <i class="fa fa-spinner fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_Waiting }}</span>
-                    <span class="count-name">Project Waiting</span>
-                </div>
-            </div>
 
-{#            <div class="col-md-3">#}
-{#                <div class="card-counter primary">#}
-{#                    <i class="fa fa-users fa-2x"></i>#}
-{#                    <span class="count-numbers">{{ count_employee}}</span>#}
-{#                    <span class="count-name">Employees</span>#}
-{#                </div>#}
-{#            </div>#}
-
-{#            <div class="col-md-3">#}
-{#                <div class="card-counter info">#}
-{#                    <i class="fa fa-user fa-2x"></i>#}
-{#                    <span class="count-numbers">{{ count_project_manager}}</span>#}
-{#                    <span class="count-name">Project Manager</span>#}
-{#                </div>#}
-{#            </div>#}
         </div>
     </div>
 
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Employee
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Employee Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">View</a>
-            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">Update</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Project Manager
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">PM Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">View</a>
-            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">Update</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Project
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Project Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">View</a>
-        </div>
-    </div>
+
+
+
+</div>
+
+
+
+
+    {#    <div class="card text-center m-4">#}
+{#        <div class="card-header">Project</div>#}
+{#        <div class="card-body">#}
+{#            <h5 class="card-title">Projects</h5>#}
+{#            <a href="{{ path('app_tache_userTaches') }}" class="btn btn-outline-primary">View</a>#}
+{#        </div>#}
+{#    </div>#}
+
 {% endblock %}
