@@ -1,0 +1,182 @@
+{% extends 'template.html.twig' %}
+
+{% block link %}<a class="navbar-brand ps-3" href="/dashboardEMP">Employee Space</a>{% endblock %}
+
+
+
+
+
+{% block pageTitle %} {% endblock %}
+
+{% block title %}Task List{% endblock %}
+
+
+{% block stylesheets %}
+    <style>
+        .gradient-custom-2 {
+            /* fallback for old browsers */
+            background: #F7F7F7;
+
+
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: -webkit-linear-gradient(to right, #C0F0EE, #2DBDB4);
+
+            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: linear-gradient(to right, #2DBDB4, #C0F0EE);
+        }
+
+        .mask-custom {
+            background: rgba(24, 24, 16, 0.2);
+            border-radius: 2em;
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            background-clip: padding-box;
+            box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+        }
+    </style>
+{% endblock %}
+
+
+ {% block layoutSidenav_nav %}
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+
+                <div class="sb-sidenav-menu-heading">Menu</div>
+
+                <a class="nav-link collapsed"
+                   data-bs-toggle="collapse"
+                   data-bs-target="#collapseLayouts"
+                   href="{{ path('app_dashboard_emp', {'userId': user.id }) }}"
+                aria-expanded="false"
+                aria-controls="collapseLayouts">
+                <div class="sb-nav-link-icon"><i class="fas fa-home" ></i></div>
+                Home
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+
+
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                   data-bs-target="#collapsePages"
+                   aria-expanded="false" aria-controls="collapsePages">
+                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+                    PM Management
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                     data-bs-parent="#sidenavAccordion">
+
+                    <nav class="sb-sidenav-menu-nested nav">
+                        {% block navbars2 %}
+                            <a class="nav-link" href="/user/newEmployee/ROLE_PROJECT_MANAGER">Add PM</a>
+                            <a class="nav-link" href="{{ path('app_user_index_project_manager') }}">Edit
+                                PM</a>
+                            <a class="nav-link" href="{{ path('app_user_index_project_manager') }}">Update
+                                PM</a>
+                            <a class="nav-link" href="{{ path('app_user_index_project_manager') }}">Delete
+                                PM</a>
+                        {% endblock %}
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+        <div class="sb-sidenav-footer">
+            <div class="small">Logged in as:</div>
+            Start Bootstrap
+        </div>
+    </nav>
+</div>
+    {% endblock %}
+
+{% block body %}
+
+    <section class="vh-100 gradient-custom-2">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-12 col-xl-10">
+                    <div class="card mask-custom">
+                        <div class="card-body p-4 text-white">
+                            <!-- Project details -->
+                            <h1>Project Details</h1>
+                            <table class="table text-white mb-0">
+                                <tbody>
+                                <tr>
+                                    <th scope="col">Project Name</th>
+                                    <td>{{ projet.nomProjet }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{ projet.Description }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Start Date</th>
+                                    <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Finish Date</th>
+                                    <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>{{ projet.status }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center pt-3 pb-2">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp" alt="Check" width="60">
+                                <h2 class="my-4">Task List</h2>
+                            </div>
+
+
+                            <table class="table text-white mb-0">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Team Member</th>
+                                    <th scope="col">Task</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for tache in taches %}
+                                    <tr class="fw-normal">
+                                        <th>
+                                            <div class="d-flex align-items-center">
+
+                                                    <i class="bi bi-person-circle text-primary me-2" style="color: #FFFFFF"></i>    </div>
+                                                <span class="ms-2">{{ tache.users.firstname }} {{ tache.users.lastname }}</span>
+
+                                        </th>
+                                        <td class="align-middle">
+                                            <span>{{ tache.description }}</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <h6 class="mb-0"><span class="badge {{ tache.status }}">{{ tache.status }}</span></h6>
+                                        </td>
+                        </td>
+                        <td class="align-middle">
+                            {% if tache.users.id == app.user.id %}
+                                <a href="{{ path('app_project_tache_show', {'id': tache.id}) }}" data-mdb-toggle="tooltip" title="Done"><i class="fas fa-check fa-lg text-success me-3"></i></a>
+                                <a href="{{ path('app_tache_projectTachesedit', {'id': tache.id}) }}" data-mdb-toggle="tooltip" title="Remove"><i class="fas fa-trash-alt fa-lg text-warning"></i></a>
+                            {% else %}
+                                <!-- If the task doesn't belong to the current user, hide the buttons -->
+                                <!-- You can also add a disabled attribute if you prefer to disable the buttons -->
+                            {% endif %}
+                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4">No records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
