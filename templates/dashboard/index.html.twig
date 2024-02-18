@@ -3,14 +3,136 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block pageTitle %}
-    Dashboard
+    Welcome to Dashboard
 {% endblock %}
-
-
+{% block link %}<a class="navbar-brand ps-3" href="/dashboard">Administrator Space</a>{% endblock %}
 
 {% block body %}
+{#    <div class="col-md-4" style=" padding-top: 30px;"> <!-- Add mb-4 for margin-bottom -->#}
+{#        <span style="font-size: xx-large">Welcome,</span>  <span style="font-size: xx-large ;color: #FE9D15;">{{ user }}!</span> <br>#}
+{#        <span style="font-size: x-large">Here is your agenda for today</span>#}
+{#        <div id="calendar" style=" padding-top: 30px; width: 400px; height: 400px; background: #FFFFFF ;"></div>#}
+{#    </div>#}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    {#    <div class="container"> #}
+    {#        <div class="row"> #}
+    {#            <div class="col-md-3"> #}
+    {#                <div class="card-counter success"> #}
+    {#                    <i class="fa fa-check fa-2x"></i> #}
+    {#                    <span class="count-numbers">{{ count_project_Competed }}</span> #}
+    {#                    <span class="count-name">Project Completed</span> #}
+    {#                </div> #}
+    {#            </div> #}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+    {#            <div class="col-md-3"> #}
+    {#                <div class="card-counter danger"> #}
+    {#                    <i class="fa fa-spinner fa-2x"></i> #}
+    {#                    <span class="count-numbers">{{ count_project_Waiting }}</span> #}
+    {#                    <span class="count-name">Project Waiting</span> #}
+    {#                </div> #}
+    {#            </div> #}
+
+    {#            <div class="col-md-3"> #}
+    {#                <div class="card-counter primary"> #}
+    {#                    <i class="fa fa-users fa-2x"></i> #}
+    {#                    <span class="count-numbers">{{ count_employee }}</span> #}
+    {#                    <span class="count-name">Employees</span> #}
+    {#                </div> #}
+    {#            </div> #}
+
+    {#            <div class="col-md-3"> #}
+    {#                <div class="card-counter info"> #}
+    {#                    <i class="fa fa-user fa-2x"></i> #}
+    {#                    <span class="count-numbers">{{ count_project_manager }}</span> #}
+    {#                    <span class="count-name">Project Manager</span> #}
+    {#                </div> #}
+    {#            </div> #}
+    {#        </div> #}
+    {#    </div> #}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.bootstrap5.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });    </script>
+    <script>
+        $(document).ready(function () {
+            $('#example2').DataTable();
+        });    </script>
+    <h2>List Users</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-counter info">
+                    <i class="fa fa-user fa-2x"></i>
+                    <span class="count-numbers">{{ count_admin }}</span>
+                    <span class="count-name">Administrator</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-counter info">
+                    <i class="fa fa-user fa-2x"></i>
+                    <span class="count-numbers">{{ count_project_manager }}</span>
+                    <span class="count-name">Project Manager</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-counter info">
+                    <i class="fa fa-users fa-2x"></i>
+                    <span class="count-numbers">{{ count_employee }}</span>
+                    <span class="count-name">Employees</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table id="example" class="table table-striped" style="width:100%">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.Firstname }}</td>
+                <td>{{ user.Lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if 'ROLE_ADMIN' in user.roles %}
+                        Administrator
+                    {% elseif 'ROLE_EMPLOYEE' in user.roles %}
+                        Employee
+                    {% elseif 'ROLE_PROJECT_MANAGER' in user.roles %}
+                        Project Manager
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="d-flex ">
+                        <a href="{{ path('app_user_edit', {'id': user.id}) }}"
+                           class="btn btn-outline-primary me-3">Edit</a>
+                        {{ include('user/_delete_form.html.twig') }}
+                        {#                        <a href="{{ path('app_dashboard') }}" class="btn btn-outline-success me-3">Create new</a> #}
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h2>List Projects</h2>
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -23,76 +145,103 @@
 
             <div class="col-md-3">
                 <div class="card-counter danger">
-                    <i class="fa fa-spinner fa-2x"></i>
+{#                    <i class="fa fa-spinner fa-2x"></i>#}
+                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
                     <span class="count-numbers">{{ count_project_Waiting }}</span>
                     <span class="count-name">Project Waiting</span>
                 </div>
             </div>
-
-            <div class="col-md-3">
-                <div class="card-counter primary">
-                    <i class="fa fa-users fa-2x"></i>
-                    <span class="count-numbers">{{ count_employee}}</span>
-                    <span class="count-name">Employees</span>
-                </div>
-            </div>
-
             <div class="col-md-3">
                 <div class="card-counter info">
-                    <i class="fa fa-user fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_manager}}</span>
-                    <span class="count-name">Project Manager</span>
+                    <i class="fa fa-pause fa-2x" aria-hidden="true"></i>
+                    <span class="count-numbers">{{ count_project_Pending }}</span>
+                    <span class="count-name">Project Pending</span>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Employee
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Employee Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">View</a>
-            <a href="/user/newEmployee/ROLE_EMPLOYEE" class="btn btn-outline-primary">Create</a>
-            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">Update/Delete</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Project Manager
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">PM Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">View</a>
-            <a href="/user/newEmployee/ROLE_PROJECT_MANAGER" class="btn btn-outline-primary">Create</a>
-            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">Update/Delete</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Administrator
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Administrator Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_admin') }}" class="btn btn-outline-primary">View</a>
-            <a href="/user/newEmployee/ROLE_ADMIN" class="btn btn-outline-primary">Create</a>
-            <a href="{{ path('app_user_index_admin') }}" class="btn btn-outline-primary">Update/Delete</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Project
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Project Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">View</a>
-            <a href="{{path('app_projet_new')}}" class="btn btn-outline-primary">Create</a>
-            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">Update/Delete</a>
-        </div>
-    </div>
+    <table id="example2" class="table table-striped" style="width:100%">
+        <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for projet in projets %}
+            <tr>
+                <td>{{ projet.nomProjet }}</td>
+                <td>{{ projet.Description }}</td>
+                <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>
+                <td>{{ projet.status }}</td>
+                <td>
+                    <div class="d-flex ">
+                        <a href="{{ path('app_admin_projet_show', {'id': projet.id}) }}"
+                           class="btn btn-outline-primary me-3">Show details</a>
+                        {{ include('projet/_delete_form.html.twig') }}
+                        {#                        <a href="{{ path('app_dashboard') }}" class="btn btn-outline-success me-3">Create new</a> #}
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {#    <div class="card text-center m-4"> #}
+    {#        <div class="card-header"> #}
+    {#            Employee #}
+    {#        </div> #}
+    {#        <div class="card-body"> #}
+    {#            <h5 class="card-title">Employee Management</h5> #}
+    {#            <p class="card-text"></p> #}
+    {#            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">View</a> #}
+    {#            <a href="/user/newEmployee/ROLE_EMPLOYEE" class="btn btn-outline-primary">Create</a> #}
+    {#            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">Update/Delete</a> #}
+    {#        </div> #}
+    {#    </div> #}
+    {#    <div class="card text-center m-4"> #}
+    {#        <div class="card-header"> #}
+    {#            Project Manager #}
+    {#        </div> #}
+    {#        <div class="card-body"> #}
+    {#            <h5 class="card-title">PM Management</h5> #}
+    {#            <p class="card-text"></p> #}
+    {#            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">View</a> #}
+    {#            <a href="/user/newEmployee/ROLE_PROJECT_MANAGER" class="btn btn-outline-primary">Create</a> #}
+    {#            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">Update/Delete</a> #}
+    {#        </div> #}
+    {#    </div> #}
+    {#    <div class="card text-center m-4"> #}
+    {#        <div class="card-header"> #}
+    {#            Administrator #}
+    {#        </div> #}
+    {#        <div class="card-body"> #}
+    {#            <h5 class="card-title">Administrator Management</h5> #}
+    {#            <p class="card-text"></p> #}
+    {#            <a href="{{ path('app_user_index_admin') }}" class="btn btn-outline-primary">View</a> #}
+    {#            <a href="/user/newEmployee/ROLE_ADMIN" class="btn btn-outline-primary">Create</a> #}
+    {#            <a href="{{ path('app_user_index_admin') }}" class="btn btn-outline-primary">Update/Delete</a> #}
+    {#        </div> #}
+    {#    </div> #}
+    {#    <div class="card text-center m-4"> #}
+    {#        <div class="card-header"> #}
+    {#            Project #}
+    {#        </div> #}
+    {#        <div class="card-body"> #}
+    {#            <h5 class="card-title">Project Management</h5> #}
+    {#            <p class="card-text"></p> #}
+    {#            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">View</a> #}
+    {#            <a href="{{path('app_projet_new')}}" class="btn btn-outline-primary">Create</a> #}
+    {#            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">Update/Delete</a> #}
+    {#        </div> #}
+    {#    </div> #}
 {% endblock %}

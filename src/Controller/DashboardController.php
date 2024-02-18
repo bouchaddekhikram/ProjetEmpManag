@@ -20,19 +20,28 @@ class DashboardController extends AbstractController
 
 
 
-    #[Route('/dashboard', name: 'app_dashboard')]
+    #[Route('/dashboard', name: 'app_dashboard',methods: ['GET'])]
     public function dashboard(UserRepository $userRepository, ProjetRepository $projetRepository): Response
     {
-        $countProjectCompeted = $projetRepository->countProjectsByStatus('Completed');
+        $countProjectCompeted = $projetRepository->countProjectsByStatus('Competed');
         $countProjectWaiting = $projetRepository->countProjectsByStatus('Waiting');
+        $countProjectPending = $projetRepository->countProjectsByStatus('Pending');
         $countEmployees = $userRepository->countUsersByRole('ROLE_EMPLOYEE');
         $countProjectManagers = $userRepository->countUsersByRole('ROLE_PROJECT_MANAGER');
+        $countAdmin = $userRepository->countUsersByRole('ROLE_ADMIN');
+
 
         return $this->render('dashboard/index.html.twig', [
             'count_project_Competed' => $countProjectCompeted,
             'count_project_Waiting' => $countProjectWaiting,
+            'count_project_Pending' => $countProjectPending,
             'count_employee' => $countEmployees,
             'count_project_manager' => $countProjectManagers,
+            'count_admin' => $countAdmin,
+
+            'users' => $userRepository->findAll(),
+            'projets' => $projetRepository->findAll(),
+
         ]);
     }
 

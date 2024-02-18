@@ -6,6 +6,7 @@ use App\Entity\Projet;
 use App\Entity\Tache;
 use App\Form\ProjetType;
 use App\Form\ProjetTypeEdit;
+use App\Form\ProjetTypeEditAdmin;
 use App\Repository\ProjetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -91,6 +92,14 @@ class ProjetController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/showP', name: 'app_admin_projet_show', methods: ['GET'])]
+    public function adminShow(Projet $projet): Response
+    {
+        return $this->render('projet/admin_show.html.twig', [
+            'projet' => $projet,
+        ]);
+    }
+
     /**
      * Function that enable the chef to update only his own projects
      */
@@ -107,6 +116,23 @@ class ProjetController extends AbstractController
         }
 
         return $this->render('projet/manager_updates.html.twig', [
+            'projet' => $projet,
+            'form' => $form,
+        ]);
+    }
+    #[Route('/{id}/edit/admin', name: 'app_projet_admin_edit', methods: ['GET', 'POST'])]
+    public function AdminEdit(Request $request, Projet $projet, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ProjetTypeEditAdmin::class, $projet);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('projet/admin_updates.html.twig', [
             'projet' => $projet,
             'form' => $form,
         ]);
@@ -140,6 +166,6 @@ class ProjetController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
     }
 }
