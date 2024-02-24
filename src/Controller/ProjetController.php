@@ -63,10 +63,10 @@ class ProjetController extends AbstractController
             $entityManager->persist($projet);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('projet/new.html.twig', [
+        return $this->render('projet/admin/new.html.twig', [
             'projet' => $projet,
             'form' => $form,
         ]);

@@ -1,6 +1,9 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.2"
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1",
+    "select2": "^4.1.0-rc.0"
   },
   "name": "projetempmang",
   "version": "1.0.0",

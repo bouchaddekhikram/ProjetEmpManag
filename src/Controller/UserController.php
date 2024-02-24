@@ -9,6 +9,7 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -112,17 +113,21 @@ class UserController extends AbstractController
                     $user,
                     $form->get('password')->getData()
                 )
-
             );
+
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // Optionally, you can return a JSON response indicating success
+//            return new JsonResponse(['message' => 'User added successfully'], Response::HTTP_OK);
             return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+
+
         }
 
+        // Render the form if it's not submitted or invalid
         return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 

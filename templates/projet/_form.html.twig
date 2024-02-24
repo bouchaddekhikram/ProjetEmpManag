@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    {{ form_start(form) }}
+    {{ form_start(form,{'action': path('app_projet_new')}) }}
     <div class="form-group">
         {{ form_label(form.nomProjet) }}
         {{ form_widget(form.nomProjet, {'attr': {'class': 'form-control'}}) }}

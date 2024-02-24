@@ -125,9 +125,10 @@
             const modalBody = document.getElementById('addUserModalBody');
 
             addUserBtn.addEventListener('click', function() {
-                fetch("{{ path('app_user_new') }}", {
+                fetch("/user/new", {
                     method: 'GET'
                 })
+
                     .then(response => response.text())
                     .then(data => {
                         modalBody.innerHTML = data;
