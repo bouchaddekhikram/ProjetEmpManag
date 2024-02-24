@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Edit Projet</h1>
 
-    {{ include('projet/admin_form_update.html.twig', {'button_label': 'Update'}) }}
+    {{ include('projet/admin/admin_form_update.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_dashboard') }}" class="btn btn-outline-primary">{{ button_label|default('Back to list') }}</a>
 

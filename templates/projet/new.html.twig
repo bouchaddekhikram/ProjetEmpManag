@@ -1,12 +1,12 @@
-{% extends 'template.html.twig' %}
+{#{% extends 'template.html.twig' %}#}
 
-{% block title %}New Projet{% endblock %}
+{% block title %}{% endblock %}
 {% block pageTitle %}
-    Create new Projet
+
 {% endblock %}
 {% block body %}
 
     {{ include('projet/_form.html.twig') }}
 
-    <a href="{{ path('app_dashboard') }}">back to dashboard</a>
+{#    <a href="{{ path('app_dashboard') }}">back to dashboard</a>#}
 {% endblock %}

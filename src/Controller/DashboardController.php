@@ -20,7 +20,7 @@ class DashboardController extends AbstractController
 
 
 
-    #[Route('/dashboard', name: 'app_dashboard',methods: ['GET'])]
+    #[Route('/dashboard', name: 'app_dashboard',methods: ['GET','POST'])]
     public function dashboard(UserRepository $userRepository, ProjetRepository $projetRepository): Response
     {
         $countProjectCompeted = $projetRepository->countProjectsByStatus('Competed');

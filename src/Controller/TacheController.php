@@ -71,7 +71,7 @@ class TacheController extends AbstractController
         $userProjects = array_values($userProjects);
 
 
-        return $this->render('projet/employee_projects.html.twig', [
+        return $this->render('projet/employee/employee_projects.html.twig', [
             'projects' => $userProjects,
             'manager' => $manager !== null ? $manager->getFirstName() : null,
         ]);
