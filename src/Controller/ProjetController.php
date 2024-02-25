@@ -101,6 +101,19 @@ class ProjetController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/showManager', name: 'app_manager_projet_show', methods: ['GET'])]
+    public function ManegerShow(Projet $projet): Response
+    {
+        return $this->render('projet/manager/managerP_show.html.twig', [
+            'projet' => $projet,
+            'taches' =>$projet->getTaches()
+        ]);
+    }
+
+
+
+
+
     /**
      * Function that enable the chef to update only his own projects
      */
@@ -130,7 +143,10 @@ class ProjetController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+            return $this->render('projet/admin/admin_show.html.twig', [
+                'projet' => $projet,
+                'taches' =>$projet->getTaches()
+            ]);
         }
 
         return $this->render('projet/admin/admin_updates.html.twig', [

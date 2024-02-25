@@ -317,7 +317,61 @@ class TacheController extends AbstractController
     }
 
     /**
-     * Function that enable manager to add new task in a project
+     * Function that enable Manager to add new task in a project
+     */
+    #[Route('/new/{projectId}/xxx', name: 'app_new_task_manager', methods: ['GET', 'POST'])]
+    public function newTaskM(Request $request, EntityManagerInterface $entityManager, int $projectId): Response
+    {
+        $tache = new Tache();
+        // Get the project based on the provided projectId
+        $project = $entityManager->getRepository(Projet::class)->find($projectId);
+
+        // Set the project for the task
+        $tache->setProjet($project);
+
+        $form = $this->createForm(TacheTypeProject::class, $tache);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            // Check if the task dates are within the project dates
+            $taskStartDate = $tache->getDateDebut();
+            $taskFinishDate = $tache->getDataFin();
+
+            if (
+                $taskStartDate < $project->getDateDebut() ||
+                $taskFinishDate > $project->getDataFin()
+            ) {
+                // Handle the case when task dates are outside the project dates
+                $this->addFlash('error', 'Task dates must be within the project dates.');
+            } else {
+                $entityManager->persist($tache);
+                $entityManager->flush();
+                // Call the method to update Projet status
+                $this->updateProjetStatus($tache->getProjet(),$entityManager);
+                return $this->render('projet/manager/managerP_show.html.twig', [
+                    'projet' => $project,
+                    'taches' =>$project->getTaches()
+                ]);
+
+
+            }
+
+        }
+
+        return $this->render('tache/project_new_task.html.twig', [
+            'projet' => $tache->getProjet(),
+            'tache' => $tache,
+            'form' => $form,
+        ]);
+    }
+
+
+
+
+
+    /**
+     * Function that enable Admin to add new task in a project
      */
     #[Route('/new/{projectId}/xxx', name: 'app_new_task', methods: ['GET', 'POST'])]
     public function newTask(Request $request, EntityManagerInterface $entityManager, int $projectId): Response
@@ -365,6 +419,18 @@ class TacheController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -430,6 +496,61 @@ class TacheController extends AbstractController
             'projet' => $tache->getProjet(),
         ]);
     }
+
+
+    /**
+     * Function that enable the admin to edit a task
+     */
+
+    #[Route('/{id}/editM', name: 'app_tache_edit_manager', methods: ['GET', 'POST'])]
+    public function editM(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(TacheTypeEdit::class, $tache);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->render('projet/manager/managerP_show.html.twig', [
+                'projet' => $tache->getProjet(),
+                'taches' =>$tache->getProjet()->getTaches()
+            ]);
+        }
+
+        return $this->render('tache/Medit.html.twig', [
+            'tache' => $tache,
+            'form' => $form,
+            'projet' => $tache->getProjet(),
+        ]);
+    }
+
+
+    #[Route('/{id}', name: 'app_tache_Mdelete', methods: ['POST'])]
+    public function deleteM(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $tache->getId(), $request->request->get('_token'))) {
+            $idP = $tache->getProjet()->getId();
+
+            $entityManager->remove($tache);
+            $entityManager->flush();
+
+
+            $this->updateProjetStatus($tache->getProjet(),$entityManager);
+
+        }
+
+        return $this->render('projet/manager/managerP_show.html.twig', [
+            'projet' => $tache->getProjet(),
+            'taches' =>$tache->getProjet()->getTaches()
+        ]);
+    }
+
+
+
+
+
+
+
 
     #[Route('/{id}', name: 'app_tache_delete', methods: ['POST'])]
     public function delete(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response

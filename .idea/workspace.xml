@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ad4e27b-fa96-448d-a9c5-fa5649863346" name="Changes" comment="Updates Functions">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_02_2024_16_26_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_18_02_2024_16_26__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tache/_formEdit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tache/_formEdit.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/update_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/update_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProjetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProjetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TacheController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TacheController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginFormAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/dashboard_Emp.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/dashboard_Emp.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/dashboard_PM.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/dashboard_PM.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/projet/admin/admin_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/projet/admin/admin_show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/projet/admin/admin_updates.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/projet/admin/admin_updates.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tache/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tache/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/template.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/template.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,10 +214,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\ProjetEmpMang\templates\tache" />
+      <recent name="C:\xampp\htdocs\ProjetEmpMang\templates\projet\manager" />
       <recent name="C:\xampp\htdocs\ProjetEmpMang Last\ProjetEmpMang\templates\projet" />
       <recent name="C:\xampp\htdocs\ProjetEmpMang Last\ProjetEmpMang\templates\user" />
       <recent name="C:\xampp\htdocs\ProjetEmpMang\templates\dashboard\assets\js" />
-      <recent name="C:\xampp\htdocs\ProjetEmpMang\public\assets\js" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\ProjetEmpMang\templates\projet\admin" />
@@ -296,7 +304,7 @@
       <workItem from="1708099538750" duration="1499000" />
       <workItem from="1708322382865" duration="8184000" />
       <workItem from="1708784890755" duration="3699000" />
-      <workItem from="1708788662757" duration="36519000" />
+      <workItem from="1708788662757" duration="45201000" />
     </task>
     <task id="LOCAL-00001" summary="Final changes">
       <created>1704539308996</created>
@@ -410,7 +418,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708874111078</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Updates Functions">
+      <created>1708876278707</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1708876278707</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

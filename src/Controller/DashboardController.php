@@ -104,19 +104,45 @@ class DashboardController extends AbstractController
 
         ]);
     }
-    #[Route('/dashboardPM', name: 'app_dashboard_pm')]
+    #[Route('/dashboardPM/{userId}', name: 'app_dashboard_pm')]
     public function dashboard_PM(UserRepository $userRepository, ProjetRepository $projetRepository): Response
     {
-        $countProjectCompeted = $projetRepository->countProjectsByStatus('Completed');
-        $countProjectWaiting = $projetRepository->countProjectsByStatus('Waiting');
-        $countEmployees = $userRepository->countUsersByRole('ROLE_EMPLOYEE');
-        $countProjectManagers = $userRepository->countUsersByRole('ROLE_PROJECT_MANAGER');
+
+        // Get the currently logged-in user
+        $user = $this->getUser();
+
+// Retrieve only the tasks belonging to the current user
+        $userProjets = $user->getProjets()->toArray();
+
+// Initialize counters
+        $completedProjects = 0;
+        $waitingProjects = 0;
+        $countProjectPending = 0;
+
+        foreach ($userProjets as $project) {
+            if ($project->getStatus() == "Completed") {
+                $completedProjects++;
+            } elseif ($project->getStatus() == "Waiting") {
+                $waitingProjects++;
+            } else {
+                $countProjectPending++;
+            }
+        }
+
+
+
+
+//        $countProjectCompeted = $userProjets->countProjectsByStatus('Completed');
+//        $countProjectWaiting = $userProjets->countProjectsByStatus('Waiting');
+//        $countProjectPending = $userProjets->countProjectsByStatus('Pending');
+
 
         return $this->render('dashboard/dashboard_PM.html.twig', [
-            'count_project_Competed' => $countProjectCompeted,
-            'count_project_Waiting' => $countProjectWaiting,
-            'count_employee' => $countEmployees,
-            'count_project_manager' => $countProjectManagers,
+            'count_project_Completed' => $completedProjects,
+            'count_project_Waiting' => $waitingProjects,
+            'count_project_Pending' => $countProjectPending,
+            'user' => $user->getFirstname(),
+            'projets' => $userProjets,
         ]);
     }
     #[Route('/dashboardAdmin', name: 'app_dashboard_admin')]
@@ -132,6 +158,7 @@ class DashboardController extends AbstractController
             'count_project_Waiting' => $countProjectWaiting,
             'count_employee' => $countEmployees,
             'count_project_manager' => $countProjectManagers,
+
         ]);
     }
 }

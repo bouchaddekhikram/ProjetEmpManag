@@ -30,16 +30,12 @@
                     <div class="card mask-custom">
                         <div class="card-body p-4 text-black">
 
-                            <a href="{{ path("app_dashboard") }}" style="position: absolute; top: 20px; left: 20px;  color: black">
+                            <a href="{{ path("app_dashboard_pm") }}" style="position: absolute; top: 20px; left: 20px;  color: black">
                                 <i class="fas fa-arrow-left"></i> Back
                             </a>
+
                             <!-- Project details -->
-                            <div style="display: flex; align-items: center;">
-                                <h1 style="margin-top: 50px; flex-grow: 1;">Project Details</h1>
-                                <a href="{{ path('app_projet_admin_edit', {'id': projet.id}) }}" class="btn btn-outline-primary me-3">Edit Project</a>
-                            </div>
-
-
+                            <h1 style="margin-top: 50px;">Project Details</h1>
                             <table class="table text-black mb-0">
                                 <tbody>
                                 <tr>
@@ -103,19 +99,19 @@
                                         </td>
                                         <td class="align-middle" >
 
-                                                <a href="{{ path('app_admin_projet_show', {'id': projet.id}) }}" onclick="updateTaskStatusToPending('{{ path('app_tache_pending', {'id': tache.id}) }}')" style="padding-right: 25px; color: red" data-mdb-toggle="tooltip" title="Pending">
+                                                <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}" onclick="updateTaskStatusToPending('{{ path('app_tache_pending', {'id': tache.id}) }}')" style="padding-right: 25px; color: red" data-mdb-toggle="tooltip" title="Pending">
                                                     <i class="fa fa-times" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ path('app_admin_projet_show', {'id': projet.id}) }}"  onclick="updateTaskStatusToWaiting('{{ path('app_tache_waiting', {'id': tache.id}) }}')" style="padding-right: 25px; color: #FE9D15" data-mdb-toggle="tooltip" title="Waiting">
+                                                <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}"  onclick="updateTaskStatusToWaiting('{{ path('app_tache_waiting', {'id': tache.id}) }}')" style="padding-right: 25px; color: #FE9D15" data-mdb-toggle="tooltip" title="Waiting">
                                                     <i class="fa fa-clock-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="{{ path('app_admin_projet_show', {'id': projet.id}) }}" onclick="updateTaskStatusToCompleted('{{ path('app_tache_completed', {'id': tache.id}) }}')" data-mdb-toggle="tooltip" title="Done">
+                                                <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}" onclick="updateTaskStatusToCompleted('{{ path('app_tache_completed', {'id': tache.id}) }}')" data-mdb-toggle="tooltip" title="Done">
                                                     <i class="fas fa-check fa-lg text-success me-3"></i>
                                                 </a>
 
                                         </td>
                                        <td> <div class="d-flex ">
-                                               <a href="{{ path('app_tache_edit', {'id': tache.id}) }}" class="btn btn-outline-primary me-3">Edit</a>
+                                               <a href="{{ path('app_tache_edit_manager', {'id': tache.id}) }}" class="btn btn-outline-primary me-3">Edit</a>
                                                {{ include('tache/_delete_form.html.twig') }}
                                                {#                        <a href="{{ path('app_dashboard') }}" class="btn btn-outline-success me-3">Create new</a> #}
                                            </div></td>
@@ -188,7 +184,7 @@
                                             const modalBody = document.getElementById('addTaskModalBody');
 
                                             addTaskBtn.addEventListener('click', function() {
-                                                fetch("{{ path('app_new_task', {'projectId': projet.id})  }}", {
+                                                fetch("{{ path('app_new_task_manager', {'projectId': projet.id})  }}", {
                                                     method: 'GET'
                                                 })
                                                     .then(response => response.text())
