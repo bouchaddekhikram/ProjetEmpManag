@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Projet;
 use App\Entity\Tache;
 use App\Form\TacheType;
+use App\Form\TacheTypeEdit;
 use App\Form\TacheTypeEmp;
 use App\Form\TacheTypeProject;
 use App\Repository\TacheRepository;
@@ -404,21 +405,29 @@ class TacheController extends AbstractController
         ]);
     }
 
+    /**
+     * Function that enable the admin to edit a task
+     */
+
     #[Route('/{id}/edit', name: 'app_tache_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(TacheType::class, $tache);
+        $form = $this->createForm(TacheTypeEdit::class, $tache);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
+            return $this->render('projet/admin/admin_show.html.twig', [
+                'projet' => $tache->getProjet(),
+                'taches' =>$tache->getProjet()->getTaches()
+            ]);
         }
 
         return $this->render('tache/edit.html.twig', [
             'tache' => $tache,
             'form' => $form,
+            'projet' => $tache->getProjet(),
         ]);
     }
 

@@ -1,0 +1,29 @@
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {{ form_start(form,{'action': path('app_tache_edit', {'id': projet.id})}) }}
+                <div class="form-group">
+                    {{ form_label(form.Description) }}
+                    {{ form_widget(form.Description, {'attr': {'class': 'form-control', 'style': 'width: 400px;' }}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.dateDebut) }}
+                    {{ form_widget(form.dateDebut, {'attr': {'style': 'width: 150px;' }}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.dataFin) }}
+                    {{ form_widget(form.dataFin, {'attr': {'style': 'width: 150px;' }}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.users) }}
+                    {{ form_widget(form.users, {'attr': {'class': 'form-control', 'style': 'width: 400px;' }}) }}
+                </div>
+
+                <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

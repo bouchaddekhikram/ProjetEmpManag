@@ -5,7 +5,7 @@
 
         <hr>
 
-        <form method="post" action="{{ path('app_user_new') }}" class="my-4">
+        {{ form_start(form) }}
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -33,6 +33,6 @@
             </div>
 
             <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
-        </form>
+        {{ form_end(form) }}
     </div>
 {% endblock %}

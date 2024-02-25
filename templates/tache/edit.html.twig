@@ -1,15 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'template.html.twig' %}
 
 {% block title %}Edit Tache{% endblock %}
-
+{% block pageTitle %} {% endblock %}
 {% block body %}
-    <h1>Edit Tache</h1>
+    <h1>Edit Task</h1>
 
-    {{ include('tache/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('tache/_formEdit.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_tache_index') }}">back to list</a>
+{#    <a href="{{ path('app_tache_index') }}">back to list</a>#}
 
-    {{ include('tache/_delete_form.html.twig') }}
+
 {% endblock %}
 
 
