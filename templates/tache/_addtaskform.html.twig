@@ -1,0 +1,35 @@
+
+{% block body %}
+
+    {{ form_start(form,{'action': path('app_new_task', {'projectId': projet.id})}) }}
+    <div class="form-group">
+        {{ form_label(form.Description) }}
+        {{ form_widget(form.Description, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.dateDebut) }}
+        {{ form_widget(form.dateDebut) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.dataFin) }}
+        {{ form_widget(form.dataFin) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.users) }}
+        {{ form_widget(form.users, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.Status) }}
+        {{ form_widget(form.Status, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+
+
+
+    {#    <button type="submit" class="btn btn-primary">Submit</button> #}
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+
