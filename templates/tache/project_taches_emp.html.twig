@@ -16,14 +16,14 @@
 
 
             /* Chrome 10-25, Safari 5.1-6 */
-            background: -webkit-linear-gradient(to right, #C0F0EE, #2DBDB4);
+            /*background: -webkit-linear-gradient(to right, #C0F0EE, #2DBDB4);*/
 
             /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-            background: linear-gradient(to right, #2DBDB4, #C0F0EE);
+            /*background: linear-gradient(to right, #2DBDB4, #C0F0EE);*/
         }
 
         .mask-custom {
-            background: rgba(24, 24, 16, 0.2);
+            background: rgba(255, 255, 255, 1);
             border-radius: 2em;
             backdrop-filter: blur(25px);
             border: 2px solid rgba(255, 255, 255, 0.05);
@@ -89,15 +89,23 @@
 
 {% block body %}
 
+
+
     <section class="vh-100 gradient-custom-2">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col-md-12 col-xl-10">
                     <div class="card mask-custom">
-                        <div class="card-body p-4 text-white">
+                        <div class="card-body p-4 text-black">
+
+                            <a href="{{ path("app_dashboard_emp" , {'userId':app.user.id}) }}" style="position: absolute; top: 20px; left: 20px;  color: black">
+                                <i class="fas fa-arrow-left"></i> Back
+                            </a>
+
+
                             <!-- Project details -->
-                            <h1>Project Details</h1>
-                            <table class="table text-white mb-0">
+                            <h1 style="margin-top: 50px;">Project Details</h1>
+                            <table class="table text-black mb-0">
                                 <tbody>
                                 <tr>
                                     <th scope="col">Project Name</th>
@@ -124,11 +132,11 @@
                             <div class="text-center pt-3 pb-2">
                                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
                                      alt="Check" width="60">
-                                <h2 class="my-4">Task List</h2>
+                                <h2 class="my-4">Tasks List</h2>
                             </div>
 
 
-                            <table class="table text-white mb-0">
+                            <table class="table text-black mb-0">
                                 <thead>
                                 <tr>
                                     <th scope="col">Team Member</th>
@@ -151,24 +159,90 @@
                                         <td class="align-middle">
                                             <span>{{ tache.description }}</span>
                                         </td>
-                                        <td class="align-middle">
-                                            <h6 class="mb-0"><span
+                                        <td class="align-middle  ">
+                                            <h6 class="mb-0"><span style="color: #000000"
                                                         class="badge {{ tache.status }}">{{ tache.status }}</span></h6>
                                         </td>
                                         </td>
-                                        <td class="align-middle">
+                                        <td class="align-middle" >
                                             {% if tache.users.id == app.user.id %}
-                                                <a href="{{ path('app_project_tache_show', {'id': tache.id}) }}"
-                                                   data-mdb-toggle="tooltip" title="Done"><i
-                                                            class="fas fa-check fa-lg text-success me-3"></i></a>
-                                                <a href="{{ path('app_tache_projectTachesedit', {'id': tache.id}) }}"
-                                                   data-mdb-toggle="tooltip" title="Remove"><i
-                                                            class="fas fa-trash-alt fa-lg text-warning"></i></a>
+                                                <a href="{{ path('app_tache_projectTaches_User', {'projectId': projet.id}) }}" onclick="updateTaskStatusToPending('{{ path('app_tache_pending', {'id': tache.id}) }}')" style="padding-right: 25px; color: red" data-mdb-toggle="tooltip" title="Pending">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ path('app_tache_projectTaches_User', {'projectId': projet.id}) }}"  onclick="updateTaskStatusToWaiting('{{ path('app_tache_waiting', {'id': tache.id}) }}')" style="padding-right: 25px; color: #FE9D15" data-mdb-toggle="tooltip" title="Waiting">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ path('app_tache_projectTaches_User', {'projectId': projet.id}) }}" onclick="updateTaskStatusToCompleted('{{ path('app_tache_completed', {'id': tache.id}) }}')" data-mdb-toggle="tooltip" title="Done">
+                                                    <i class="fas fa-check fa-lg text-success me-3"></i>
+                                                </a>
                                             {% else %}
                                                 <!-- If the task doesn't belong to the current user, hide the buttons -->
                                                 <!-- You can also add a disabled attribute if you prefer to disable the buttons -->
+                                                <span>Not authorized</span> {# Fallback message #}
                                             {% endif %}
                                         </td>
+
+
+                                        <script>
+                                            function updateTaskStatusToPending(url) {
+                                                fetch(url, {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    }
+                                                })
+                                                    .then(response => response.text())
+                                                    .then(data => {
+                                                        // Optionally, update the UI or display a success message
+                                                        console.log('Task status updated to Pending');
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error:', error);
+                                                        // Handle errors if needed
+                                                    });
+                                            }
+
+
+                                            function updateTaskStatusToWaiting(url) {
+                                                fetch(url, {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    }
+                                                })
+                                                    .then(response => response.text())
+                                                    .then(data => {
+                                                        // Optionally, update the UI or display a success message
+                                                        console.log('Task status updated to Waiting');
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error:', error);
+                                                        // Handle errors if needed
+                                                    });
+                                            }
+
+                                            function updateTaskStatusToCompleted(url) {
+                                                fetch(url, {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'X-Requested-With': 'XMLHttpRequest'
+                                                    }
+                                                })
+                                                    .then(response => response.text())
+                                                    .then(data => {
+                                                        // Optionally, update the UI or display a success message
+                                                        console.log('Task status updated to Completed');
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error:', error);
+                                                        // Handle errors if needed
+                                                    });
+                                            }
+                                        </script>
+
+
+
+
                                     </tr>
                                 {% else %}
                                     <tr>

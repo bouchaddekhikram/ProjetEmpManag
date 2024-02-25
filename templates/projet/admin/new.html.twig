@@ -1,12 +1,18 @@
 {#{% extends 'template.html.twig' %}#}
 
 {% block title %}{% endblock %}
-{% block pageTitle %}
+{% block pageTitle %}{% endblock %}
 
-{% endblock %}
 {% block body %}
 
     {{ include('projet/_form.html.twig') }}
+    {% block flash_messages %}
+        {% for flashMessage in app.flashes('error') %}
+            <div class="alert alert-danger" role="alert">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+    {% endblock %}
 
 {#    <a href="{{ path('app_dashboard') }}">back to dashboard</a>#}
 {% endblock %}

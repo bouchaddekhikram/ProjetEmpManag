@@ -1,6 +1,9 @@
-{% extends 'template.html.twig' %}
+{#{% extends 'template.html.twig' %}#}
 
-{% block title %}New Tache{% endblock %}
+
+
+{% block title %}{% endblock %}
+{% block pageTitle %}{% endblock %}
 
 {% block body %}
     <h1>Create new Tache</h1>
@@ -14,6 +17,4 @@
             </div>
         {% endfor %}
     {% endblock %}
-
-{#    <a href="{{ path('app_tache_projectTaches' , {'projectId': tache.projet.id}) }}">back to list</a>#}
 {% endblock %}

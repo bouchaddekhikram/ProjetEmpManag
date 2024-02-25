@@ -178,7 +178,7 @@
     </div>
 
     <div class="d-flex justify-content-end mb-3">
-        <button class="btn btn-outline-success" id="addProjectBtn">
+        <button class="btn btn-outline-success" id="addTaskBtn">
             <i class="fas fa-plus me-1"></i> Add Project
         </button>
     </div>
@@ -219,14 +219,14 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
+                    <h5 class="modal-title" id="addTaskModalLabel">Add New Project</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="addProjectModalBody">
+                <div class="modal-body" id="addTaskModalBody">
                     <!-- New Project Form content will be inserted here -->
                 </div>
             </div>
@@ -235,8 +235,8 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const addProjectBtn = document.getElementById('addProjectBtn');
-            const modalBody = document.getElementById('addProjectModalBody');
+            const addProjectBtn = document.getElementById('addTaskBtn');
+            const modalBody = document.getElementById('addTaskModalBody');
 
             addProjectBtn.addEventListener('click', function() {
                 fetch("{{ path('app_projet_new') }}", {
@@ -245,7 +245,7 @@
                     .then(response => response.text())
                     .then(data => {
                         modalBody.innerHTML = data;
-                        $('#addProjectModal').modal('show'); // Show the modal
+                        $('#addTaskModalBody').modal('show'); // Show the modal
                     })
                     .catch(error => {
                         console.error('Error:', error);

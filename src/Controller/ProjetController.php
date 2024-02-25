@@ -97,6 +97,7 @@ class ProjetController extends AbstractController
     {
         return $this->render('projet/admin/admin_show.html.twig', [
             'projet' => $projet,
+            'taches' =>$projet->getTaches()
         ]);
     }
 

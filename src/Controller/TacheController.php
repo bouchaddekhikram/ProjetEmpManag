@@ -11,6 +11,7 @@ use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -178,6 +179,85 @@ class TacheController extends AbstractController
             'form' => $form,
         ]);
     }
+
+
+    /**
+     * Update the status of tasks to Pending
+     */
+    #[Route('/{id}/TaskPending/xx', name: 'app_tache_pending', methods: ['POST'])]
+    public function taskPending(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
+    {
+        // Call the method to update the status of the task to "Pending"
+        $this->updateTaskStatusToPending($tache, $entityManager);
+        // Call the method to update Projet status
+        $this->updateProjetStatus($tache->getProjet(),$entityManager);
+
+        // Return a JSON response indicating success
+        return new JsonResponse(['message' => 'Task status updated to Pending']);
+    }
+
+// Method to update the status of the task to "Pending"
+    private function updateTaskStatusToPending(Tache $tache, EntityManagerInterface $entityManager): void
+    {
+        $tache->setStatus('Pending'); // Assuming 'Pending' is a valid status for your task entity
+        $entityManager->persist($tache);
+        $entityManager->flush();
+    }
+
+
+    /**
+     * Update the status of tasks to Waiting
+     */
+    #[Route('/{id}/TaskWaiting/xx', name: 'app_tache_waiting', methods: ['POST'])]
+    public function taskWaiting(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
+    {
+        // Call the method to update the status of the task to "Pending"
+        $this->updateTaskStatusToWaiting($tache, $entityManager);
+        // Call the method to update Projet status
+        $this->updateProjetStatus($tache->getProjet(),$entityManager);
+
+        // Return a JSON response indicating success
+        return new JsonResponse(['message' => 'Task status updated to Pending']);
+    }
+
+// Method to update the status of the task to "Pending"
+    private function updateTaskStatusToWaiting(Tache $tache, EntityManagerInterface $entityManager): void
+    {
+        $tache->setStatus('Waiting'); // Assuming 'Pending' is a valid status for your task entity
+        $entityManager->persist($tache);
+        $entityManager->flush();
+    }
+
+
+
+
+    /**
+     * Update the status of tasks to Completed
+     */
+    #[Route('/{id}/TaskCompleted/xx', name: 'app_tache_completed', methods: ['POST'])]
+    public function taskCompleted(Request $request, Tache $tache, EntityManagerInterface $entityManager): Response
+    {
+        // Call the method to update the status of the task to "Pending"
+        $this->updateTaskStatusToCompleted($tache, $entityManager);
+        // Call the method to update Projet status
+        $this->updateProjetStatus($tache->getProjet(),$entityManager);
+
+        // Return a JSON response indicating success
+        return new JsonResponse(['message' => 'Task status updated to Pending']);
+    }
+
+// Method to update the status of the task to "Pending"
+    private function updateTaskStatusToCompleted(Tache $tache, EntityManagerInterface $entityManager): void
+    {
+        $tache->setStatus('Completed'); // Assuming 'Pending' is a valid status for your task entity
+        $entityManager->persist($tache);
+        $entityManager->flush();
+    }
+
+
+
+
+
 
 
     #[Route('/{id}/edit/emp', name: 'app_Taches_editEmp', methods: ['GET', 'POST'])]
