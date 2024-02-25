@@ -346,9 +346,17 @@ class TacheController extends AbstractController
             } else {
                 $entityManager->persist($tache);
                 $entityManager->flush();
+                // Call the method to update Projet status
+                $this->updateProjetStatus($tache->getProjet(),$entityManager);
+                return $this->render('projet/admin/admin_show.html.twig', [
+                    'projet' => $project,
+                    'taches' =>$project->getTaches()
+                ]);
 
-                return $this->redirectToRoute('app_tache_projectTaches', ['projectId' => $tache->getProjet()->getId()], Response::HTTP_SEE_OTHER);
-            }     }
+
+            }
+
+        }
 
         return $this->render('tache/project_new_task.html.twig', [
             'projet' => $tache->getProjet(),
@@ -422,8 +430,15 @@ class TacheController extends AbstractController
 
             $entityManager->remove($tache);
             $entityManager->flush();
+
+
+            $this->updateProjetStatus($tache->getProjet(),$entityManager);
+
         }
 
-        return $this->redirectToRoute('app_projet_userProjets', [], Response::HTTP_SEE_OTHER);
+        return $this->render('projet/admin/admin_show.html.twig', [
+            'projet' => $tache->getProjet(),
+            'taches' =>$tache->getProjet()->getTaches()
+        ]);
     }
 }

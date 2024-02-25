@@ -7,10 +7,8 @@
     <list default="true" id="8ad4e27b-fa96-448d-a9c5-fa5649863346" name="Changes" comment="Add Functions : Admin">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/TacheController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TacheController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/projet/admin/admin_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/projet/admin/admin_show.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tache/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tache/_form.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/tache/project_new_task.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tache/project_new_task.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tache/_delete_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tache/_delete_form.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -297,7 +295,7 @@
       <workItem from="1708099538750" duration="1499000" />
       <workItem from="1708322382865" duration="8184000" />
       <workItem from="1708784890755" duration="3699000" />
-      <workItem from="1708788662757" duration="29084000" />
+      <workItem from="1708788662757" duration="31725000" />
     </task>
     <task id="LOCAL-00001" summary="Final changes">
       <created>1704539308996</created>
@@ -383,7 +381,21 @@
       <option name="project" value="LOCAL" />
       <updated>1708860254702</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Add Functions : Admin">
+      <created>1708865670964</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1708865670964</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Add Functions : Admin">
+      <created>1708865677694</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1708865677694</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

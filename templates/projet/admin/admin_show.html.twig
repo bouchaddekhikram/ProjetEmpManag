@@ -110,6 +110,17 @@
                                                 </a>
 
                                         </td>
+                                       <td> <div class="d-flex ">
+                                               <a href="#"
+                                                  class="btn btn-outline-primary me-3">Edit</a>
+                                               {{ include('tache/_delete_form.html.twig') }}
+                                               {#                        <a href="{{ path('app_dashboard') }}" class="btn btn-outline-success me-3">Create new</a> #}
+                                           </div></td>
+
+
+
+
+
                                     </tr>
 
                                     <script>
@@ -205,20 +216,6 @@
                             </table>
 
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="addTaskModalLabel">Add New TASK</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body" id="addTaskModalBody">
-                                            <!-- New Project Form content will be inserted here -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
 
 
@@ -230,5 +227,20 @@
             </div>
         </div>
     </section>
+    <!-- Modal -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Add New TASK</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="addTaskModalBody">
+                    <!-- New Project Form content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}
