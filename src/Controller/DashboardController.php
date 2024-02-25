@@ -23,7 +23,7 @@ class DashboardController extends AbstractController
     #[Route('/dashboard', name: 'app_dashboard',methods: ['GET','POST'])]
     public function dashboard(UserRepository $userRepository, ProjetRepository $projetRepository): Response
     {
-        $countProjectCompeted = $projetRepository->countProjectsByStatus('Completed');
+        $countProjectCompleted = $projetRepository->countProjectsByStatus('Completed');
         $countProjectWaiting = $projetRepository->countProjectsByStatus('Waiting');
         $countProjectPending = $projetRepository->countProjectsByStatus('Pending');
         $countEmployees = $userRepository->countUsersByRole('ROLE_EMPLOYEE');
@@ -32,7 +32,7 @@ class DashboardController extends AbstractController
 
 
         return $this->render('dashboard/index.html.twig', [
-            'count_project_Competed' => $countProjectCompeted,
+            'count_project_Completed' => $countProjectCompleted,
             'count_project_Waiting' => $countProjectWaiting,
             'count_project_Pending' => $countProjectPending,
             'count_employee' => $countEmployees,

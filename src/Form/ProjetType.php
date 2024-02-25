@@ -24,7 +24,7 @@ class ProjetType extends AbstractType
                 'choices' => [
                     'Pending' => 'Pending',
                     'Waiting' => 'Waiting',
-                    'Competed' => 'Competed',
+                    'Completed' => 'Completed',
                 ],
             ])
             ->add('user', EntityType::class, [

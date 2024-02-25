@@ -1,8 +1,8 @@
 {% block body %}
     <div class="container">
-        <div class="row justify-content-center">
+{#        <div class="row justify-content-center">#}
             <div class="col-md-6">
-                {{ form_start(form,{'action': path('app_tache_edit', {'id': projet.id})}) }}
+                {{ form_start(form,{'action': path('app_tache_edit', {'id': tache.id})}) }}
                 <div class="form-group">
                     {{ form_label(form.Description) }}
                     {{ form_widget(form.Description, {'attr': {'class': 'form-control', 'style': 'width: 400px;' }}) }}
@@ -24,6 +24,6 @@
 
                 {{ form_end(form) }}
             </div>
-        </div>
+{#        </div>#}
     </div>
 {% endblock %}
