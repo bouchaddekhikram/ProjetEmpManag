@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ad4e27b-fa96-448d-a9c5-fa5649863346" name="Changes" comment="Add Functions : Admin">
+    <list default="true" id="8ad4e27b-fa96-448d-a9c5-fa5649863346" name="Changes" comment="Adjust dashboard Employee">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DashboardController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProjetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProjetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/TacheType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/TacheType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/dashboard_Emp.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/dashboard_Emp.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/dashboard/dashboard_PM.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/dashboard_PM.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/projet/admin/admin_form_update.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/projet/admin/admin_form_update.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/projet/admin/admin_updates.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/projet/admin/admin_updates.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/projet/manager/managerP_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/projet/manager/managerP_show.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -423,7 +414,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708876278707</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Adjust dashboard Employee">
+      <created>1708894739924</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1708894739924</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -457,6 +455,7 @@
     <MESSAGE value="Final changes" />
     <MESSAGE value="Add Functions : Admin" />
     <MESSAGE value="Updates Functions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updates Functions" />
+    <MESSAGE value="Adjust dashboard Employee" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adjust dashboard Employee" />
   </component>
 </project>
