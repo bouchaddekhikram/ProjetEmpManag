@@ -53,7 +53,7 @@ class DashboardController extends AbstractController
         if (!$user) {
             throw $this->createNotFoundException('User not found');
         }
-        $countProjectCompeted = $projetRepository->countProjectsByStatus('Completed');
+        $countProjectCompleted = $projetRepository->countProjectsByStatus('Completed');
         $countProjectWaiting = $projetRepository->countProjectsByStatus('Waiting');
         $countEmployees = $userRepository->countUsersByRole('ROLE_EMPLOYEE');
         $countProjectManagers = $userRepository->countUsersByRole('ROLE_PROJECT_MANAGER');
@@ -95,7 +95,7 @@ class DashboardController extends AbstractController
 
         return $this->render('dashboard/dashboard_Emp.html.twig', [
             'user' => $user->getFirstname(),
-            'count_project_Competed' => $completedProjects,
+            'count_project_Completed' => $completedProjects,
             'count_project_Waiting' => $waitingProjects,
             'count_employee' => $countEmployees,
             'count_project_manager' => $countProjectManagers,
@@ -132,7 +132,7 @@ class DashboardController extends AbstractController
 
 
 
-//        $countProjectCompeted = $userProjets->countProjectsByStatus('Completed');
+//        $countProjectcompleted = $userProjets->countProjectsByStatus('Completed');
 //        $countProjectWaiting = $userProjets->countProjectsByStatus('Waiting');
 //        $countProjectPending = $userProjets->countProjectsByStatus('Pending');
 
@@ -148,13 +148,13 @@ class DashboardController extends AbstractController
     #[Route('/dashboardAdmin', name: 'app_dashboard_admin')]
     public function dashboard_AD(UserRepository $userRepository, ProjetRepository $projetRepository): Response
     {
-        $countProjectCompeted = $projetRepository->countProjectsByStatus('Completed');
+        $countProjectCompleted = $projetRepository->countProjectsByStatus('Completed');
         $countProjectWaiting = $projetRepository->countProjectsByStatus('Waiting');
         $countEmployees = $userRepository->countUsersByRole('ROLE_EMPLOYEE');
         $countProjectManagers = $userRepository->countUsersByRole('ROLE_PROJECT_MANAGER');
 
         return $this->render('dashboard/dashboard_Admin.html.twig', [
-            'count_project_Competed' => $countProjectCompeted,
+            'count_project_Completed' => $countProjectCompleted,
             'count_project_Waiting' => $countProjectWaiting,
             'count_employee' => $countEmployees,
             'count_project_manager' => $countProjectManagers,

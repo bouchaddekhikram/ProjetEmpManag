@@ -3,7 +3,6 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block pageTitle %}
-    Dashboard
 {% endblock %}
 
 {% block link %}
@@ -11,6 +10,7 @@
 {% endblock %}
 
 
+{% block body %}
 
 {% block stylesheets %}
     {{ parent() }}
@@ -32,47 +32,52 @@
 
 
 
-{% block body %}
   {% block navbars %}
-      {% endblock %}
-    <div class="col-md-4" style=" padding-top: 30px;"> <!-- Add mb-4 for margin-bottom -->
-        <!-- Calendar div with a width of 400px and height of 300px -->
-        <span style="font-size: xx-large">Welcome,</span>  <span style="font-size: xx-large ;color: #FE9D15;">{{ user }}!</span> <br>
-        <span style="font-size: x-large">Here is your agenda for today</span>
-        <div id="calendar" style=" padding-top: 30px; width: 400px; height: 400px; background: #FFFFFF ;"></div>
-    </div>
+      {% endblock %}<div class="test">
+    <div class="row">
+        <div class="col-md-6" style="padding-top: 30px;">
+            <!-- Calendar div with a width of 400px and height of 300px -->
+            <span style="font-size: xx-large">Welcome,</span> <span style="font-size: xx-large; color: #FE9D15;">{{ user }}!</span> <br>
+            <span style="font-size: x-large">Here is your agenda for today</span>
+            <div id="calendar" style="padding-top: 30px; width: 400px; height: 400px; background: #FFFFFF;"></div>
+        </div>
 
+        <div class="col-md-6" style="padding-top: 30px;">
+            <h2>Project Staistic</h2>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-counter success">
+                            <i class="fa fa-check fa-2x"></i>
+                            <span class="count-numbers">{{ count_project_Completed }}</span>
+                            <span class="count-name">Project Completed</span>
+                        </div>
+                    </div>
 
-    <h2>Projects List </h2>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card-counter success">
-                    <i class="fa fa-check fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_Completed }}</span>
-                    <span class="count-name">Project Completed</span>
-                </div>
-            </div>
+                    <div class="col-md-12" style="margin-top: 20px;">
+                        <div class="card-counter danger">
+                            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                            <span class="sr-only">Loading...</span>
+                            <span class="count-numbers">{{ count_project_Waiting }}</span>
+                            <span class="count-name">Project Waiting</span>
+                        </div>
+                    </div>
 
-            <div class="col-md-3">
-                <div class="card-counter danger">
-                    {#                    <i class="fa fa-spinner fa-2x"></i>#}
-                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-                    <span class="sr-only">Loading...</span>
-                    <span class="count-numbers">{{ count_project_Waiting }}</span>
-                    <span class="count-name">Project Waiting</span>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card-counter info">
-                    <i class="fa fa-pause fa-2x" aria-hidden="true"></i>
-                    <span class="count-numbers">{{ count_project_Pending }}</span>
-                    <span class="count-name">Project Pending</span>
+                    <div class="col-md-12" style="margin-top: 20px;">
+                        <div class="card-counter info">
+                            <i class="fa fa-pause fa-2x" aria-hidden="true"></i>
+                            <span class="count-numbers">{{ count_project_Pending }}</span>
+                            <span class="count-name">Project Pending</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+
+    <h2>Projects List</h2>
 
     <table id="example2" class="table table-striped" style="width:100% ; padding-top: 20px">
         <thead>

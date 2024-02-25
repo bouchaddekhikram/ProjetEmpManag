@@ -22,7 +22,7 @@ class TacheType extends AbstractType
                 'choices' => [
                     'Pending' => 'Pending',
                     'Waiting' => 'Waiting',
-                    'Competed' => 'Competed',
+                    'Completed' => 'Completed',
                 ],
             ])
             ->add('projet', EntityType::class, [

@@ -1,0 +1,43 @@
+Index: templates/projet/admin_updates.html.twig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/projet/admin_updates.html.twig b/templates/projet/admin/admin_updates.html.twig
+rename from templates/projet/admin_updates.html.twig
+rename to templates/projet/admin/admin_updates.html.twig
+--- a/templates/projet/admin_updates.html.twig	
++++ b/templates/projet/admin/admin_updates.html.twig	
+@@ -1,11 +1,11 @@
+-{% extends 'template.html.twig' %}
++{% extends '../../../template.html.twig' %}
+ 
+ {% block title %}Edit Projet{% endblock %}
+ 
+ {% block body %}
+     <h1>Edit Projet</h1>
+ 
+-    {{ include('projet/admin_form_update.html.twig', {'button_label': 'Update'}) }}
++    {{ include('projet/admin/admin_form_update.html.twig', {'button_label': 'Update'}) }}
+ 
+     <a href="{{ path('app_dashboard') }}" class="btn btn-outline-primary">{{ button_label|default('Back to list') }}</a>
+ 
+Index: templates/projet/admin_show.html.twig
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/templates/projet/admin_show.html.twig b/templates/projet/admin/admin_show.html.twig
+rename from templates/projet/admin_show.html.twig
+rename to templates/projet/admin/admin_show.html.twig
+--- a/templates/projet/admin_show.html.twig	
++++ b/templates/projet/admin/admin_show.html.twig	
+@@ -1,4 +1,4 @@
+-{% extends 'template.html.twig' %}
++{% extends '../../../template.html.twig' %}
+ 
+ {% block title %}Projet{% endblock %}
+ 
+diff --git a/templates/projet/admin_form_update.html.twig b/templates/projet/admin/admin_form_update.html.twig
+rename from templates/projet/admin_form_update.html.twig
+rename to templates/projet/admin/admin_form_update.html.twig

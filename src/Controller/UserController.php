@@ -99,7 +99,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[IsGranted("ROLE_ADMIN")]
+//    #[IsGranted("ROLE_ADMIN")]
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {

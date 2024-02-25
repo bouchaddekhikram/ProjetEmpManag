@@ -63,7 +63,11 @@ class ProjetController extends AbstractController
             $entityManager->persist($projet);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+//            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+            return $this->render('projet/admin/admin_show.html.twig', [
+                'projet' => $projet,
+                'taches' =>$projet->getTaches()
+            ]);
         }
 
         return $this->render('projet/admin/new.html.twig', [
@@ -92,7 +96,7 @@ class ProjetController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/showP', name: 'app_admin_projet_show', methods: ['GET'])]
+    #[Route('/{id}/showEp', name: 'app_admin_projet_show', methods: ['GET'])]
     public function adminShow(Projet $projet): Response
     {
         return $this->render('projet/admin/admin_show.html.twig', [
