@@ -351,6 +351,7 @@ class TacheController extends AbstractController
             }     }
 
         return $this->render('tache/project_new_task.html.twig', [
+            'projet' => $tache->getProjet(),
             'tache' => $tache,
             'form' => $form,
         ]);

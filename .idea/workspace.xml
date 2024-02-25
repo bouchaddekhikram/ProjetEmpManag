@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="8ad4e27b-fa96-448d-a9c5-fa5649863346" name="Changes" comment="Add Functions : Admin">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/TacheController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TacheController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/dashboard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/projet/admin/admin_show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/projet/admin/admin_show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tache/_form.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tache/_form.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/tache/project_new_task.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/tache/project_new_task.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,28 +187,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/ProjetEmpMang Last/ProjetEmpMang/templates/projet&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.webide.settings.project.settings.php.zend.framework.tool&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/xampp/htdocs/ProjetEmpMang/templates/tache",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.webide.settings.project.settings.php.zend.framework.tool",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\ProjetEmpMang\templates\tache" />
       <recent name="C:\xampp\htdocs\ProjetEmpMang Last\ProjetEmpMang\templates\projet" />
       <recent name="C:\xampp\htdocs\ProjetEmpMang Last\ProjetEmpMang\templates\user" />
-      <recent name="C:\xampp\htdocs\ProjetEmpMang\templates\tache" />
       <recent name="C:\xampp\htdocs\ProjetEmpMang\templates\dashboard\assets\js" />
       <recent name="C:\xampp\htdocs\ProjetEmpMang\public\assets\js" />
     </key>
@@ -292,7 +297,7 @@
       <workItem from="1708099538750" duration="1499000" />
       <workItem from="1708322382865" duration="8184000" />
       <workItem from="1708784890755" duration="3699000" />
-      <workItem from="1708788662757" duration="24052000" />
+      <workItem from="1708788662757" duration="29084000" />
     </task>
     <task id="LOCAL-00001" summary="Final changes">
       <created>1704539308996</created>
@@ -371,7 +376,14 @@
       <option name="project" value="LOCAL" />
       <updated>1708859557772</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Add Functions : Admin">
+      <created>1708860254702</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1708860254702</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
