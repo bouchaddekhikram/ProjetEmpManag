@@ -19,13 +19,13 @@ class ProjetTypeEdit extends AbstractType
             ->add('Description')
             ->add('dateDebut')
             ->add('dataFin')
-            ->add('Status', ChoiceType::class, [
-                'choices' => [
-                    'Pending' => 'Pending',
-                    'Waiting' => 'Waiting',
-                    'Competed' => 'Competed',
-                ],
-            ])
+//            ->add('Status', ChoiceType::class, [
+//                'choices' => [
+//                    'Pending' => 'Pending',
+//                    'Waiting' => 'Waiting',
+//                    'Competed' => 'Competed',
+//                ],
+//            ])
             /**
              * Make the user field unchangeble
              * Or

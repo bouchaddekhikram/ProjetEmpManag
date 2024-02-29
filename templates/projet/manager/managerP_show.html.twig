@@ -1,0 +1,245 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Projet{% endblock %}
+{% block pageTitle %} {% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Add the styles from your template here */
+        .gradient-custom-2 {
+            background: #F7F7F7;
+        }
+
+        .mask-custom {
+            background: rgba(255, 255, 255, 1);
+            border-radius: 2em;
+            backdrop-filter: blur(25px);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            background-clip: padding-box;
+            box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <section class="vh-100 gradient-custom-2">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-md-12 col-xl-10">
+                    <div class="card mask-custom">
+                        <div class="card-body p-4 text-black">
+
+{#                            <a href="{{ path("app_dashboard_pm") }}" style="position: absolute; top: 20px; left: 20px;  color: black">#}
+{#                                <i class="fas fa-arrow-left"></i> Back#}
+{#                            </a>#}
+
+                            <!-- Project details -->
+                            <h1 style="margin-top: 50px;">Project Details</h1>
+                            <table class="table text-black mb-0">
+                                <tbody>
+                                <tr>
+                                    <th scope="col">Project Name</th>
+                                    <td>{{ projet.nomProjet }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>{{ projet.Description }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Start Date</th>
+                                    <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Finish Date</th>
+                                    <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status</th>
+                                    <td>{{ projet.status }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center pt-3 pb-2">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"
+                                     alt="Check" width="60">
+                                <h2 class="my-4">Tasks List</h2>
+                                <div class="d-flex justify-content-end mb-3">
+                                    <button class="btn btn-outline-success" id="addTaskBtn">
+                                        <i class="fas fa-plus me-1"></i> Add Task
+                                    </button>
+                                </div>
+                            </div>
+
+                            <table class="table text-black mb-0">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Team Member</th>
+                                    <th scope="col">Task</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for tache in taches %}
+                                    <tr class="fw-normal">
+                                        <th>
+                                            <div class="d-flex align-items-center">
+                                                <i class="bi bi-person-circle text-primary me-2"
+                                                   style="color: #FFFFFF"></i>
+                                                <span class="ms-2">{{ tache.users.firstname }} {{ tache.users.lastname }}</span>
+                                            </div>
+                                        </th>
+                                        <td class="align-middle">
+                                            <span>{{ tache.description }}</span>
+                                        </td>
+                                        <td class="align-middle  ">
+                                            <h6 class="mb-0"><span style="color: #000000"
+                                                                   class="badge {{ tache.status }}">{{ tache.status }}</span></h6>
+                                        </td>
+                                        <td class="align-middle" >
+
+                                                <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}" onclick="updateTaskStatusToPending('{{ path('app_tache_pending', {'id': tache.id}) }}')" style="padding-right: 25px; color: red" data-mdb-toggle="tooltip" title="Pending">
+                                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}"  onclick="updateTaskStatusToWaiting('{{ path('app_tache_waiting', {'id': tache.id}) }}')" style="padding-right: 25px; color: #FE9D15" data-mdb-toggle="tooltip" title="Waiting">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                </a>
+                                                <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}" onclick="updateTaskStatusToCompleted('{{ path('app_tache_completed', {'id': tache.id}) }}')" data-mdb-toggle="tooltip" title="Done">
+                                                    <i class="fas fa-check fa-lg text-success me-3"></i>
+                                                </a>
+
+                                        </td>
+                                       <td> <div class="d-flex ">
+                                               <a href="{{ path('app_tache_edit_manager', {'id': tache.id}) }}" class="btn btn-outline-primary me-3">Edit</a>
+                                               {{ include('tache/_delete_form.html.twig') }}
+                                               {#                        <a href="{{ path('app_dashboard') }}" class="btn btn-outline-success me-3">Create new</a> #}
+                                           </div></td>
+
+
+
+
+
+                                    </tr>
+
+                                    <script>
+                                        function updateTaskStatusToPending(url) {
+                                            fetch(url, {
+                                                method: 'POST',
+                                                headers: {
+                                                    'X-Requested-With': 'XMLHttpRequest'
+                                                }
+                                            })
+                                                .then(response => response.text())
+                                                .then(data => {
+                                                    // Optionally, update the UI or display a success message
+                                                    console.log('Task status updated to Pending');
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                    // Handle errors if needed
+                                                });
+                                        }
+
+
+                                        function updateTaskStatusToWaiting(url) {
+                                            fetch(url, {
+                                                method: 'POST',
+                                                headers: {
+                                                    'X-Requested-With': 'XMLHttpRequest'
+                                                }
+                                            })
+                                                .then(response => response.text())
+                                                .then(data => {
+                                                    // Optionally, update the UI or display a success message
+                                                    console.log('Task status updated to Waiting');
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                    // Handle errors if needed
+                                                });
+                                        }
+
+                                        function updateTaskStatusToCompleted(url) {
+                                            fetch(url, {
+                                                method: 'POST',
+                                                headers: {
+                                                    'X-Requested-With': 'XMLHttpRequest'
+                                                }
+                                            })
+                                                .then(response => response.text())
+                                                .then(data => {
+                                                    // Optionally, update the UI or display a success message
+                                                    console.log('Task status updated to Completed');
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                    // Handle errors if needed
+                                                });
+                                        }
+
+
+                                        document.addEventListener("DOMContentLoaded", function() {
+                                            const addTaskBtn = document.getElementById('addTaskBtn');
+                                            const modalBody = document.getElementById('addTaskModalBody');
+
+                                            addTaskBtn.addEventListener('click', function() {
+                                                fetch("{{ path('app_new_task_manager', {'projectId': projet.id})  }}", {
+                                                    method: 'GET'
+                                                })
+                                                    .then(response => response.text())
+                                                    .then(data => {
+                                                        modalBody.innerHTML = data;
+                                                        $('#addTaskModal').modal('show'); // Show the modal
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Error:', error);
+                                                        alert('An error occurred while loading the new project form. Please try again.');
+                                                    });
+                                            });
+                                        });
+
+
+
+
+                                    </script>
+
+
+
+                                {% else %}
+                                    <tr>
+                                        <td colspan="4">No records found</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Modal -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Add New TASK</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="addTaskModalBody">
+                    <!-- New Project Form content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

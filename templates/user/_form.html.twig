@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    {{ form_start(form) }}
+    {{ form_start(form,{'action': path('app_user_new')}) }}
     <div class="form-group">
         {{ form_label(form.Firstname) }}
         {{ form_widget(form.Firstname, {'attr': {'class': 'form-control'}}) }}
@@ -31,8 +31,10 @@
         </div>
     </div>
 
-    {#    <button type="submit" class="btn btn-primary">Submit</button>#}
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+
+
+{#        <button type="submit" class="btn btn-primary">Submit</button>#}
+    <button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
 
     {{ form_end(form) }}
 

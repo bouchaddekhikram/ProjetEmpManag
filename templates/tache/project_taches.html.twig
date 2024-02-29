@@ -53,13 +53,13 @@
         {% endfor %}
         </tbody>
     </table>
-    {% if taches is not empty %}
+
         <a href="{{ path('app_new_task', {'projectId': taches[0].projet.id}) }}">Create new</a>
-    {% else %}
-        <p>No tasks available</p>
-        {# or provide a link to create a new task without a specific project ID #}
-        <a href="{{ path('app_new_task') }}">Create new</a>
-    {%endif%}
+{#    {% else %}#}
+{#        <p>No tasks available</p>#}
+{#        #}{# or provide a link to create a new task without a specific project ID #}
+{#        <a href="{{ path('app_new_task') }}">Create new</a>#}
+{#    {%endif%}#}
 {#    <a href="{{ path('app_new_task' , {'projectId': taches[0].projet.id}) }}">Create new</a>#}
     <a href="{{ path('app_projet_userProjets') }}">Back to project list</a>
 {% endblock %}

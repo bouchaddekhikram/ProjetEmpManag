@@ -7,7 +7,9 @@
 
     {{ include('projet/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_projet_index') }}">back to list</a>
+{#    <a href="{{ path('app_projet_index') }}">back to list</a>#}
+    <a href="{{ path('app_dashboard') }}" class="btn btn-outline-primary">{{ button_label|default('Back to list') }}</a>
+
 
     {{ include('projet/_delete_form.html.twig') }}
 {% endblock %}

@@ -3,210 +3,117 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block pageTitle %}
-    Dashboard
 {% endblock %}
 
 {% block link %}
-    <a class="navbar-brand ps-3" href="/dashboardPM">Employee Management</a>
+    <a class="navbar-brand ps-3" href="/dashboardPM">Manager Space</a>
 {% endblock %}
-
-{#{% block stylesheets %}#}
-{#    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">#}
-{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">#}
-{#    <link rel="stylesheet" href="assets/css/style.css">#}
-{#{% endblock %}#}
 
 
 {% block body %}
-  {% block navbars %}
-      {% endblock %}
 
-{#    <section class="ftco-section">#}
-{#        <div class="container">#}
-{#            <div class="row justify-content-center">#}
-{#                <div class="col-md-6 text-center mb-5">#}
-{#                    <h2 class="heading-section">Calendar</h2>#}
-{#                </div>#}
-{#            </div>#}
-{#            <div class="row">#}
-{#                <div class="col-md-12">#}
-{#                    <div class="elegant-calencar d-md-flex">#}
-{#                        <div class="wrap-header d-flex align-items-center">#}
-{#                            <p id="reset">reset</p>#}
-{#                            <div id="header" class="p-0">#}
-{#                                <div class="pre-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-left"></i></div>#}
-{#                                <div class="head-info">#}
-{#                                    <div class="head-day"></div>#}
-{#                                    <div class="head-month"></div>#}
-{#                                </div>#}
-{#                                <div class="next-button d-flex align-items-center justify-content-center"><i class="fa fa-chevron-right"></i></div>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="calendar-wrap">#}
-{#                            <table id="calendar">#}
-{#                                <thead>#}
-{#                                <tr>#}
-{#                                    <th>Sun</th>#}
-{#                                    <th>Mon</th>#}
-{#                                    <th>Tue</th>#}
-{#                                    <th>Wed</th>#}
-{#                                    <th>Thu</th>#}
-{#                                    <th>Fri</th>#}
-{#                                    <th>Sat</th>#}
-{#                                </tr>#}
-{#                                </thead>#}
-{#                                <tbody>#}
-{#                                <tr>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                </tr>#}
-{#                                <tr>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                </tr>#}
-{#                                <tr>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                </tr>#}
-{#                                <tr>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                </tr>#}
-{#                                <tr>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                </tr>#}
-{#                                <tr>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                    <td></td>#}
-{#                                </tr>#}
-{#                                </tbody>#}
-{#                            </table>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </section>#}
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css"/>
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+        <script>
+            $(document).ready(() => $('#calendar').fullCalendar({}));
+        </script>
+    {% endblock %}
 
 
 
 
 
-
-
-
-
-
-
-
-
-    {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />#}
-    <div class="container">
+    {% block navbars %}
+    {% endblock %}
+    <div class="test">
         <div class="row">
-            <div class="col-md-3">
-                <div class="card-counter success">
-                    <i class="fa fa-check fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_Competed }}</span>
-                    <span class="count-name">Project Completed</span>
-                </div>
+            <div class="col-md-6" style="padding-top: 30px;">
+                <!-- Calendar div with a width of 400px and height of 300px -->
+                <span style="font-size: xx-large">Welcome,</span> <span
+                        style="font-size: xx-large; color: #FE9D15;">{{ user }}!</span> <br>
+                <span style="font-size: x-large">Here is your agenda for today</span>
+                <div id="calendar" style="padding-top: 30px; width: 400px; height: 400px; background: #FFFFFF;"></div>
             </div>
 
-            <div class="col-md-3">
-                <div class="card-counter danger">
-                    <i class="fa fa-spinner fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_Waiting }}</span>
-                    <span class="count-name">Project Waiting</span>
-                </div>
-            </div>
+            <div class="col-md-6" style="padding-top: 30px;">
+                <h2>Project Statistics</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-counter success">
+                                <i class="fa fa-check fa-2x"></i>
+                                <span class="count-numbers">{{ count_project_Completed }}</span>
+                                <span class="count-name">Project Completed</span>
+                            </div>
+                        </div>
 
-            <div class="col-md-3">
-                <div class="card-counter primary">
-                    <i class="fa fa-users fa-2x"></i>
-                    <span class="count-numbers">{{ count_employee}}</span>
-                    <span class="count-name">Employees</span>
-                </div>
-            </div>
+                        <div class="col-md-12" style="margin-top: 20px;">
+                            <div class="card-counter danger">
+                                <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                                <span class="sr-only">Loading...</span>
+                                <span class="count-numbers">{{ count_project_Waiting }}</span>
+                                <span class="count-name">Project Waiting</span>
+                            </div>
+                        </div>
 
-            <div class="col-md-3">
-                <div class="card-counter info">
-                    <i class="fa fa-user fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_manager}}</span>
-                    <span class="count-name">Project Manager</span>
+                        <div class="col-md-12" style="margin-top: 20px;">
+                            <div class="card-counter info">
+                                <i class="fa fa-pause fa-2x" aria-hidden="true"></i>
+                                <span class="count-numbers">{{ count_project_Pending }}</span>
+                                <span class="count-name">Project Pending</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Project
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Project Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">View</a>
-            <a href="{{path('app_projet_new')}}" class="btn btn-outline-primary">Create</a>
-            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">Update/Delete</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Employee
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Employee Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">View</a>
-            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">Update</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Project Manager
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">PM Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">View</a>
-            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">Update</a>
-        </div>
-    </div>
+
+
+    <h2>Projects List</h2>
+
+    <table id="example2" class="table table-striped" style="width:100% ; padding-top: 20px">
+        <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for projet in projets %}
+            <tr>
+                <td>{{ projet.nomProjet }}</td>
+                <td>{{ projet.Description }}</td>
+                <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>
+                <td>{{ projet.status }}</td>
+                <td>
+                    <div class="d-flex ">
+                        <a href="{{ path('app_manager_projet_show', {'id': projet.id}) }}"
+                           class="btn btn-outline-primary me-3">Show details</a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
 
-{#{% block javascripts %}#}
-{#    <script src="assets/js/jquery.min.js"></script>#}
-{#    <script src="assets/js/popper.js"></script>#}
-{#    <script src="assets/js/bootstrap.min.js"></script>#}
-{#    <script src="assets/js/main.js"></script>#}
-{#{% endblock %}#}
+

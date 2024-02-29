@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserTypeEdit;
 use App\Form\UserTypeSpec;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -97,7 +99,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[IsGranted("ROLE_ADMIN")]
+//    #[IsGranted("ROLE_ADMIN")]
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
@@ -111,19 +113,24 @@ class UserController extends AbstractController
                     $user,
                     $form->get('password')->getData()
                 )
-
             );
+
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('employee_PM', [], Response::HTTP_SEE_OTHER);
+            // Optionally, you can return a JSON response indicating success
+//            return new JsonResponse(['message' => 'User added successfully'], Response::HTTP_OK);
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+
+
         }
 
+        // Render the form if it's not submitted or invalid
         return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
@@ -136,13 +143,13 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserTypeEdit::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/edit.html.twig', [

@@ -3,96 +3,268 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block pageTitle %}
-    Dashboard
+    Welcome to Dashboard
 {% endblock %}
+{% block link %}<a class="navbar-brand ps-3" href="/dashboard">Administrator Space</a>{% endblock %}
 
 
 
 {% block body %}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/2.0.0/css/dataTables.bootstrap5.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.0/js/dataTables.bootstrap5.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });    </script>
+    <script>
+        $(document).ready(function () {
+            $('#example2').DataTable();
+        });    </script>
+    <h3 style="  padding-top: 20px;">Users Statistics</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card-counter info">
+                    <i class="fa fa-user fa-2x"></i>
+                    <span class="count-numbers">{{ count_admin }}</span>
+                    <span class="count-name">Administrator</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-counter info">
+                    <i class="fa fa-user fa-2x"></i>
+                    <span class="count-numbers">{{ count_project_manager }}</span>
+                    <span class="count-name">Project Manager</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card-counter info">
+                    <i class="fa fa-users fa-2x"></i>
+                    <span class="count-numbers">{{ count_employee }}</span>
+                    <span class="count-name">Employees</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3" style="  padding-top: 20px;">
+        <h2 >Users List</h2>
+        <button class="btn btn-outline-success" id="addUserBtn">
+            <i class="fas fa-user-plus me-1"></i> Add User
+        </button>
+    </div>
+
+
+    <div id="tableContainer">
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.Firstname }}</td>
+                    <td>{{ user.Lastname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% if 'ROLE_ADMIN' in user.roles %}
+                            Administrator
+                        {% elseif 'ROLE_EMPLOYEE' in user.roles %}
+                            Employee
+                        {% elseif 'ROLE_PROJECT_MANAGER' in user.roles %}
+                            Project Manager
+                        {% endif %}
+                    </td>
+                    <td>
+
+                        <div class="d-flex ">
+                            <a href="{{ path('app_user_edit', {'id': user.id}) }}"
+                               class="btn btn-outline-primary me-3">Edit</a>
+                            {{ include('user/_delete_form.html.twig') }}
+                            {#                        <a href="{{ path('app_dashboard') }}" class="btn btn-outline-success me-3">Create new</a> #}
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="addUserModalBody">
+                    <!-- New User Form content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const addUserBtn = document.getElementById('addUserBtn');
+            const modalBody = document.getElementById('addUserModalBody');
+
+            addUserBtn.addEventListener('click', function () {
+                fetch("/user/new", {
+                    method: 'GET'
+                })
+
+                    .then(response => response.text())
+                    .then(data => {
+                        modalBody.innerHTML = data;
+                        $('#addUserModal').modal('show'); // Show the modal
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while loading the new user form. Please try again.');
+                    });
+            });
+        });
+    </script>
+
+
+
+
+
+    <h3 style="  padding-top: 20px;">Project Statistics</h3>
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <div class="card-counter success">
                     <i class="fa fa-check fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_Competed }}</span>
+                    <span class="count-numbers">{{ count_project_Completed }}</span>
                     <span class="count-name">Project Completed</span>
                 </div>
             </div>
 
             <div class="col-md-3">
                 <div class="card-counter danger">
-                    <i class="fa fa-spinner fa-2x"></i>
+                    {#                    <i class="fa fa-spinner fa-2x"></i> #}
+                    <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+                    <span class="sr-only">Loading...</span>
                     <span class="count-numbers">{{ count_project_Waiting }}</span>
                     <span class="count-name">Project Waiting</span>
                 </div>
             </div>
-
-            <div class="col-md-3">
-                <div class="card-counter primary">
-                    <i class="fa fa-users fa-2x"></i>
-                    <span class="count-numbers">{{ count_employee}}</span>
-                    <span class="count-name">Employees</span>
-                </div>
-            </div>
-
             <div class="col-md-3">
                 <div class="card-counter info">
-                    <i class="fa fa-user fa-2x"></i>
-                    <span class="count-numbers">{{ count_project_manager}}</span>
-                    <span class="count-name">Project Manager</span>
+                    <i class="fa fa-pause fa-2x" aria-hidden="true"></i>
+                    <span class="count-numbers">{{ count_project_Pending }}</span>
+                    <span class="count-name">Project Pending</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-3" style="  padding-top: 20px;">
+
+        <h2>Projects List </h2>
+
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn btn-outline-success" id="addProjectBtn">
+                <i class="fas fa-plus me-1"></i> Add Project
+            </button>
+        </div>
+    </div>
+
+    <table id="example2" class="table table-striped" style="width:100%">
+        <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for projet in projets %}
+            <tr>
+                <td>{{ projet.nomProjet }}</td>
+                <td>{{ projet.Description }}</td>
+                <td>{{ projet.dateDebut ? projet.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ projet.dataFin ? projet.dataFin|date('Y-m-d') : '' }}</td>
+                <td>{{ projet.status }}</td>
+                <td>
+                    <div class="d-flex ">
+                        <a href="{{ path('app_admin_projet_show', {'id': projet.id}) }}"
+                           class="btn btn-outline-primary me-3">Show details</a>
+                        {{ include('projet/_delete_form.html.twig') }}
+                        {#                        <a href="{{ path('app_dashboard') }}" class="btn btn-outline-success me-3">Create new</a> #}
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addProjectModal" tabindex="-1" aria-labelledby="addProjectModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="addProjectModalBody">
+                    <!-- New Project Form content will be inserted here -->
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Employee
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Employee Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">View</a>
-            <a href="/user/newEmployee/ROLE_EMPLOYEE" class="btn btn-outline-primary">Create</a>
-            <a href="{{ path('app_user_index_employee') }}" class="btn btn-outline-primary">Update/Delete</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Project Manager
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">PM Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">View</a>
-            <a href="/user/newEmployee/ROLE_PROJECT_MANAGER" class="btn btn-outline-primary">Create</a>
-            <a href="{{ path('app_user_index_project_manager') }}" class="btn btn-outline-primary">Update/Delete</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Administrator
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Administrator Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_user_index_admin') }}" class="btn btn-outline-primary">View</a>
-            <a href="/user/newEmployee/ROLE_ADMIN" class="btn btn-outline-primary">Create</a>
-            <a href="{{ path('app_user_index_admin') }}" class="btn btn-outline-primary">Update/Delete</a>
-        </div>
-    </div>
-    <div class="card text-center m-4">
-        <div class="card-header">
-            Project
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Project Management</h5>
-            <p class="card-text"></p>
-            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">View</a>
-            <a href="{{path('app_projet_new')}}" class="btn btn-outline-primary">Create</a>
-            <a href="{{ path('app_projet_index') }}" class="btn btn-outline-primary">Update/Delete</a>
-        </div>
-    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const addProjectBtn = document.getElementById('addProjectBtn');
+            const modalBody = document.getElementById('addProjectModalBody');
+
+            addProjectBtn.addEventListener('click', function () {
+                fetch("{{ path('app_projet_new') }}", {
+                    method: 'POST'
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        modalBody.innerHTML = data;
+                        $('#addProjectModal').modal('show'); // Show the modal
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while loading the new project form. Please try again.');
+                    });
+            });
+        });
+    </script>
 {% endblock %}

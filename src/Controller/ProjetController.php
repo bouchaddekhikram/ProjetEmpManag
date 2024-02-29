@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Projet;
+use App\Entity\Tache;
 use App\Form\ProjetType;
 use App\Form\ProjetTypeEdit;
+use App\Form\ProjetTypeEditAdmin;
 use App\Repository\ProjetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,10 +30,18 @@ class ProjetController extends AbstractController
         // Retrieve only the tasks belonging to the current user
         $userProjets = $user->getProjets();
 
-        return $this->render('projet/manager_projects.html.twig', [
+        return $this->render('projet/manger/manager_projects.html.twig', [
             'projets' => $userProjets,
         ]);
     }
+
+
+
+
+
+
+
+
 
 
     #[Route('/', name: 'app_projet_index', methods: ['GET'])]
@@ -53,10 +63,14 @@ class ProjetController extends AbstractController
             $entityManager->persist($projet);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
+//            return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
+            return $this->render('projet/admin/admin_show.html.twig', [
+                'projet' => $projet,
+                'taches' =>$projet->getTaches()
+            ]);
         }
 
-        return $this->render('projet/new.html.twig', [
+        return $this->render('projet/admin/new.html.twig', [
             'projet' => $projet,
             'form' => $form,
         ]);
@@ -77,10 +91,32 @@ class ProjetController extends AbstractController
     #[Route('/{id}/xx', name: 'app_manager_projet_show', methods: ['GET'])]
     public function managerShow(Projet $projet): Response
     {
-        return $this->render('projet/manager_show.html.twig', [
+        return $this->render('projet/manager/manager_show.html.twig', [
             'projet' => $projet,
         ]);
     }
+
+    #[Route('/{id}/showEp', name: 'app_admin_projet_show', methods: ['GET'])]
+    public function adminShow(Projet $projet): Response
+    {
+        return $this->render('projet/admin/admin_show.html.twig', [
+            'projet' => $projet,
+            'taches' =>$projet->getTaches()
+        ]);
+    }
+
+    #[Route('/{id}/showManager', name: 'app_manager_projet_show', methods: ['GET'])]
+    public function ManegerShow(Projet $projet): Response
+    {
+        return $this->render('projet/manager/managerP_show.html.twig', [
+            'projet' => $projet,
+            'taches' =>$projet->getTaches()
+        ]);
+    }
+
+
+
+
 
     /**
      * Function that enable the chef to update only his own projects
@@ -97,7 +133,27 @@ class ProjetController extends AbstractController
             return $this->redirectToRoute('app_projet_userProjets', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('projet/manager_updates.html.twig', [
+        return $this->render('projet/manager/manager_updates.html.twig', [
+            'projet' => $projet,
+            'form' => $form,
+        ]);
+    }
+    #[Route('/{id}/edit/admin', name: 'app_projet_admin_edit', methods: ['GET', 'POST'])]
+    public function AdminEdit(Request $request, Projet $projet, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ProjetTypeEditAdmin::class, $projet);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->render('projet/admin/admin_show.html.twig', [
+                'projet' => $projet,
+                'taches' =>$projet->getTaches()
+            ]);
+        }
+
+        return $this->render('projet/admin/admin_updates.html.twig', [
             'projet' => $projet,
             'form' => $form,
         ]);
@@ -131,6 +187,6 @@ class ProjetController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_dashboard', [], Response::HTTP_SEE_OTHER);
     }
 }
